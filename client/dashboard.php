@@ -6,10 +6,10 @@ if (!isset($_SESSION['name'])) {
     header('Location: ./index.php');
 }
 
-    require_once("./modules/filemanage.php");
-    require_once("./modules/directorymanage.php");
+require_once("./modules/filemanage.php");
+require_once("./modules/directorymanage.php");
 
-    $filesAndDir = getFilesAndDir();
+$filesAndDir = getFilesAndDir();
 
 ?>
 
@@ -217,19 +217,19 @@ if (!isset($_SESSION['name'])) {
                     </div>
 
                     <?php
-                        $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files' ;
+                    $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
 
-                        $filesAndDir = getFilesAndDir($folderName);
+                    $filesAndDir = getFilesAndDir($folderName);
 
-                        $newArray = getArrayFilesAndDir($filesAndDir, $folderName);
+                    $newArray = getArrayFilesAndDir($filesAndDir, $folderName);
 
-                        foreach($newArray as $file) {
+                    foreach ($newArray as $file) {
                     ?>
                         <div class="row p-3 m-2 text-center">
                             <div class="col">
                                 <?php if ($file['type'] === 'dir') { ?>
                                     <button type="button" onclick="window.location.href='./dashboard.php?dir=<?= $file['name']; ?>'"><?= $file['name']; ?></button>
-                                <?php } else { ?> 
+                                <?php } else { ?>
                                     <button type="button" onclick="window.location.href='<?= $file['url']; ?>'"><?= $file['name']; ?></button>
                                 <?php } ?>
                             </div>
