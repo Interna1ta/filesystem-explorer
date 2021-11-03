@@ -1,13 +1,26 @@
 <?php
     session_start();
 
+    require_once("./modules/filemanage.php");
+
+    $rootUrl = $_SERVER['DOCUMENT_ROOT'].$_SERVER['REQUEST_URI'];
+
+    $folderName = "files";
+    $newFileName = "firstFile4";
+    $fileContent = "some text here";
+    $fileExtension = "txt";
+
+    // createFile($folderName, $newFileName, $fileContent, $fileExtension);
+    // openFile($folderName, $newFileName, $fileExtension);
+    // uploadFile($folderName);
+    deleteFile($folderName, $newFileName, $fileExtension);
+
     if (isset($_GET['logout'])) {
         session_destroy();
         unset($_SESSION['email']);
         header("Refresh:2; location: index.php");
     }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
