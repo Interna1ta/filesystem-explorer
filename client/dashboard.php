@@ -5,6 +5,9 @@ session_start();
 if (!isset($_SESSION['name'])) {
     header('Location: ./index.php');
 }
+
+    require_once("./modules/filemanage.php");
+    require_once("./modules/directorymanage.php");
 ?>
 
 
@@ -204,14 +207,28 @@ if (!isset($_SESSION['name'])) {
 
                     <!-- Content Row -->
 
-                    <div class="container"></div>
                     <div class="row bg-gray-200 text-gray-900 p-3 m-2 text-center">
                         <div class="col">Select</div>
                         <div class="col">Name</div>
                         <div class="col">Creation Date</div>
                         <div class="col">File Size</div>
                         <div class="col">Extension</div>
-                        <!-- <div class="col">Download</div> -->
+                    </div>
+
+                    <div class="row p-3 m-2 text-center">
+                        <div class="col"><button type="button" onclick="<?php $folderName = "files"; $newDirectoryName = 'blabla2'; createDirectory($folderName, $newDirectoryName); ?>">blabla2</button></div>
+                        <div class="col">file</div>
+                        <div class="col">Sunday 23</div>
+                        <div class="col">23 kB</div>
+                        <div class="col">txt</div>
+                    </div>
+
+                    <div class="row p-3 m-2 text-center">
+                        <div class="col"><button type="button" onclick="">blabla3</button></div>
+                        <div class="col">file</div>
+                        <div class="col">Monday 24</div>
+                        <div class="col">27 kB</div>
+                        <div class="col">txt</div>
                     </div>
                 </div>
 

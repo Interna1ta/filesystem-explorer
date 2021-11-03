@@ -5,9 +5,9 @@
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $nameDb = "Galileo";
-    $emailDb = "scaramouche@willyoudothefandango.com";
-    $passwordDb = "priscila";
+    $nameDb = "team";
+    $emailDb = "team@mail.com";
+    $passwordDb = "1234";
 
     $passwordHash = password_hash($passwordDb, PASSWORD_BCRYPT);
 
