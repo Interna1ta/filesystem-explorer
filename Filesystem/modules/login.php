@@ -18,5 +18,3 @@
         $_SESSION['errorMessage'] = "This email or password is not in our database";
         header('Location: ../index.php');
     }
-
-?>
