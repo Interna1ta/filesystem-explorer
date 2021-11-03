@@ -1,5 +1,43 @@
 <?php
 
+function getFilesAndDir($folderName = "files") {
+
+    $folderPath = getFolderPath($folderName);
+
+    return array_diff(scandir($folderPath), array('.', '..', '.DS_Store'));
+}
+
+function getFolderPath($folderName) {
+    if ($folderName !== 'files') {
+        return $folderPath = './files/' . $folderName;
+    } else {
+        return $folderPath = './files';
+    }
+}
+
+function getArrayFilesAndDir($filesAndDir, $folderName = "files") {
+
+    $folderPath = getFolderPath($folderName);
+
+    $newArray = array();
+    $i = 0;
+
+    foreach($filesAndDir as $file) {
+        $filePath = $folderPath . '/' . $file;
+
+        $newArray[$i]['type'] = is_dir($filePath) ? 'dir' : 'file';
+        $newArray[$i]['url'] = $filePath;
+        $newArray[$i]['name'] = $file;
+        $newArray[$i]['file-size'] = filesize($filePath);
+        $newArray[$i]['last-modified'] = date("F d Y H:i:s.", filemtime($filePath));
+
+        $i += 1;
+    }
+
+    return $newArray;
+
+}
+
 function createFile($folderName = "files", $newFileName, $fileContent = "", $fileExtension= "txt") {
 
     try {

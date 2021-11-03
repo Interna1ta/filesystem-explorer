@@ -8,6 +8,9 @@ if (!isset($_SESSION['name'])) {
 
     require_once("./modules/filemanage.php");
     require_once("./modules/directorymanage.php");
+
+    $filesAndDir = getFilesAndDir();
+
 ?>
 
 
@@ -208,28 +211,33 @@ if (!isset($_SESSION['name'])) {
                     <!-- Content Row -->
 
                     <div class="row bg-gray-200 text-gray-900 p-3 m-2 text-center">
-                        <div class="col">Select</div>
                         <div class="col">Name</div>
-                        <div class="col">Creation Date</div>
+                        <div class="col">Last modified</div>
                         <div class="col">File Size</div>
-                        <div class="col">Extension</div>
                     </div>
 
-                    <div class="row p-3 m-2 text-center">
-                        <div class="col"><button type="button" onclick="<?php $folderName = "files"; $newDirectoryName = 'blabla2'; createDirectory($folderName, $newDirectoryName); ?>">blabla2</button></div>
-                        <div class="col">file</div>
-                        <div class="col">Sunday 23</div>
-                        <div class="col">23 kB</div>
-                        <div class="col">txt</div>
-                    </div>
+                    <?php
+                        $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files' ;
 
-                    <div class="row p-3 m-2 text-center">
-                        <div class="col"><button type="button" onclick="">blabla3</button></div>
-                        <div class="col">file</div>
-                        <div class="col">Monday 24</div>
-                        <div class="col">27 kB</div>
-                        <div class="col">txt</div>
-                    </div>
+                        $filesAndDir = getFilesAndDir($folderName);
+
+                        $newArray = getArrayFilesAndDir($filesAndDir, $folderName);
+
+                        foreach($newArray as $file) {
+                    ?>
+                        <div class="row p-3 m-2 text-center">
+                            <div class="col">
+                                <?php if ($file['type'] === 'dir') { ?>
+                                    <button type="button" onclick="window.location.href='./dashboard.php?dir=<?= $file['name']; ?>'"><?= $file['name']; ?></button>
+                                <?php } else { ?> 
+                                    <button type="button" onclick="window.location.href='<?= $file['url']; ?>'"><?= $file['name']; ?></button>
+                                <?php } ?>
+                            </div>
+                            <div class="col"><?= $file['last-modified']; ?></div>
+                            <div class="col"><?= $file['file-size']; ?> kB</div>
+                        </div>
+                    <?php } ?>
+
                 </div>
 
                 <!-- Footer -->
