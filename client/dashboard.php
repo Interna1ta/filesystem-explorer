@@ -6,8 +6,8 @@ if (!isset($_SESSION['name'])) {
     header('Location: ./index.php');
 }
 
-    require_once("./modules/filemanage.php");
-    require_once("./modules/directorymanage.php");
+require_once("./modules/filemanage.php");
+require_once("./modules/directorymanage.php");
 ?>
 
 
@@ -215,21 +215,22 @@ if (!isset($_SESSION['name'])) {
                         <div class="col">Extension</div>
                     </div>
 
-                    <div class="row p-3 m-2 text-center">
-                        <div class="col"><button type="button" onclick="<?php $folderName = "files"; $newDirectoryName = 'blabla2'; createDirectory($folderName, $newDirectoryName); ?>">blabla2</button></div>
-                        <div class="col">file</div>
-                        <div class="col">Sunday 23</div>
-                        <div class="col">23 kB</div>
-                        <div class="col">txt</div>
-                    </div>
 
-                    <div class="row p-3 m-2 text-center">
-                        <div class="col"><button type="button" onclick="">blabla3</button></div>
-                        <div class="col">file</div>
-                        <div class="col">Monday 24</div>
-                        <div class="col">27 kB</div>
-                        <div class="col">txt</div>
-                    </div>
+                    <?php
+
+                    require_once("../client/modules/directorymanage.php");
+
+                    $res = openDirectory();
+
+                    for ($i = 2; $i < count($res); $i++) {
+
+                        echo "<div>Name: <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal' id=$res[$i]>
+                $res[$i]
+                    </button> </div>";
+                    };
+                    ?>
+
+
                 </div>
 
                 <!-- Footer -->
@@ -290,6 +291,26 @@ if (!isset($_SESSION['name'])) {
         <!-- Page level custom scripts -->
         <script src="js/demo/chart-area-demo.js"></script>
         <script src="js/demo/chart-pie-demo.js"></script>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form class="modal-content" action="../client/modules/rename.php" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><input type="text" readonly class="form-control-plaintext" id="changeNameForm" name="oldDirName"></h5>
+                        <button type=" button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Change Name: </h5>
+                        <input name="newDirName" placeholder="Insert New Name">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
 </body>
 

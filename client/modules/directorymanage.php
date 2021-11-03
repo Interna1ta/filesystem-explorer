@@ -1,32 +1,45 @@
 <?php
 
-function createDirectory($folderName = "files", $newDirectoryName) {
+function createDirectory($folderName = "files", $newDirectoryName)
+{
 
   $dir = './' . $folderName . '/' . $newDirectoryName;
 
   if (!file_exists($dir)) {
-      mkdir($dir);
+    mkdir($dir);
   } else {
     echo 'directory already exists';
   }
 }
 
-function openDirectory($urlDirectory) {
+function openDirectory()
+{
 
+  $userDirectory = "../client/files";
+
+  $data =  scandir($userDirectory);
+
+  return $data;
 }
 
-function uploadDirectory($urlDirectory) {
-
+function uploadDirectory($urlDirectory)
+{
 }
 
-function deleteDirectory($urlDirectory) {
-
+function deleteDirectory($urlDirectory)
+{
 }
 
-function renameDirectory($urlDirectory) {
+function renameDirectory($old, $new)
+{
 
+  if (file_exists("../files/$old")) {
+    rename("../files/$old", "../files/$new");
+  }
+
+  header("Location: ../dashboard.php");
 }
 
-function filterDirectories() {
-
+function filterDirectories()
+{
 }
