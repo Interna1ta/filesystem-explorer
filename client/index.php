@@ -2,6 +2,7 @@
     session_start();
 
     require_once("./modules/filemanage.php");
+    require_once("./modules/directorymanage.php");
 
     $rootUrl = $_SERVER['DOCUMENT_ROOT'].$_SERVER['REQUEST_URI'];
 
@@ -9,6 +10,10 @@
     $newFileName = "firstFile5";
     $fileContent = "some text here";
     $fileExtension = "txt";
+
+    $newDirectoryName = 'blabla';
+
+    // createDirectory($folderName, $newDirectoryName);
 
     // createFile($folderName, $newFileName, $fileContent, $fileExtension);
     // openFile($folderName, $newFileName, $fileExtension);

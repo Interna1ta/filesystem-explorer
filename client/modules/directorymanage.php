@@ -1,7 +1,14 @@
 <?php
 
-function createDirectory($newDirectoryName, $directoryContent) {
+function createDirectory($folderName = "files", $newDirectoryName) {
 
+  $dir = './' . $folderName . '/' . $newDirectoryName;
+
+  if (!file_exists($dir)) {
+      mkdir($dir);
+  } else {
+    echo 'directory already exists';
+  }
 }
 
 function openDirectory($urlDirectory) {
