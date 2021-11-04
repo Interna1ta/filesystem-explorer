@@ -49,49 +49,38 @@ $baseUrl = getBaseUrl();
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <!-- Sidebar - Brand -->
-            <div class="sidebar-brand d-flex justify-content-lg-center">
-                <a class="nav-link dropdown-toggle d-flex justify-content-lg-center" href=" #" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mx-4 text-white sidebar-brand-text just">
-                        <b>HI, <?php echo strtoupper($_SESSION['name']); ?></b>
+            <div class="sidebar-brand d-flex justify-content-lg-center p-2 border-bottom">
+                <a class="nav-link dropdown-toggle d-flex justify-content-lg-center align-items-center" href=" #" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="mx-2 text-white sidebar-brand-text just">
+                        <b><?php echo strtoupper($_SESSION['name']); ?></b>
                     </span>
-                    <div>
-                        <img class="img-thumbnail rounded-circle w-75" src="img/undraw_profile.svg">
-                    </div>
-                </a>
-                <!-- Dropdown - User Information -->
-                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Logout
-                    </a>
-                    <div class="sidebar-brand-text mx-3">
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right animated--grow-in" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
+                        <div class="sidebar-brand-text mx-3">
 
-                        <!-- Nav Item - User Information -->
-                        <div class="sidebar-brand-text dropdown no-arrow">
+                            <!-- Nav Item - User Information -->
+                            <div class="sidebar-brand-text dropdown no-arrow">
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="d-flex justify-content-end align-items-center mr-2">
+                        <img class="pl-auto img-thumbnail rounded-circle w-25" style="padding: 0.125rem !important;" src="img/undraw_profile.svg" />
+                    </div>
+                </a>
             </div>
 
             <!-- Nav Item - Dashboard -->
-            <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" class="nav-item active btn bg-white d-flex justify-content-center m-4 align-middle">
-                <label for='file' class='btn btn-white'>
-                    <i class="fa fa-plus align-middle fa-space-shuttle fa-rotate-270" aria-hidden="true"></i>
-                    Upload File
+            <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" class="nav-item active btn bg-white d-flex justify-content-center m-3 mr-auto align-middle" style="border-radius: 30px; padding: 0.5 rem 1rem;">
+                <label for='file' class="mb-0">
+                    <img class="mr-1" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/plus.svg" />
+                    New
                 </label>
                 <input class="d-none" type="file" name='file' id='file' onchange="form.submit()" />
             </form>
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Folders
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <?php
-            $rootFiles = getPathContent($rootPath);
-            echo (renderFolders($rootFiles));
-            ?>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -123,7 +112,7 @@ $baseUrl = getBaseUrl();
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light border-bottom topbar static-top">
+                <nav class="navbar navbar-expand navbar-light border-bottom topbar static-top px-2">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
