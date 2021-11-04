@@ -8,6 +8,9 @@ if (!isset($_SESSION['name'])) {
 
 require_once("./modules/filemanage.php");
 require_once("./modules/directorymanage.php");
+
+$filesAndDir = getFilesAndDir();
+
 ?>
 
 
@@ -27,6 +30,8 @@ require_once("./modules/directorymanage.php");
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <link rel="stylesheet" href="./context-menu.css">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -208,28 +213,36 @@ require_once("./modules/directorymanage.php");
                     <!-- Content Row -->
 
                     <div class="row bg-gray-200 text-gray-900 p-3 m-2 text-center">
-                        <div class="col">Select</div>
                         <div class="col">Name</div>
-                        <div class="col">Creation Date</div>
+                        <div class="col">Last modified</div>
                         <div class="col">File Size</div>
-                        <div class="col">Extension</div>
                     </div>
 
 
+
+
+
                     <?php
+                    $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
 
-                    require_once("../client/modules/directorymanage.php");
+                    $filesAndDir = getFilesAndDir($folderName);
 
-                    $res = openDirectory();
+                    $newArray = getArrayFilesAndDir($filesAndDir, $folderName);
 
-                    for ($i = 2; $i < count($res); $i++) {
-
-                        echo "<div>Name: <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal' id=$res[$i]>
-                $res[$i]
-                    </button> </div>";
-                    };
+                    foreach ($newArray as $file) {
                     ?>
-
+                        <div class="row p-3 m-2 text-center">
+                            <div class="col">
+                                <?php if ($file['type'] === 'dir') { ?>
+                                    <button type="button" onclick="window.location.href='./dashboard.php?dir=<?= $file['name']; ?>'" class='btn btn-primary'><?= $file['name']; ?></button>
+                                <?php } else { ?>
+                                    <button type="button" onclick="window.location.href='<?= $file['url']; ?>'" class='btn btn-primary'><?= $file['name']; ?></button>
+                                <?php } ?>
+                            </div>
+                            <div class="col"><?= $file['last-modified']; ?></div>
+                            <div class="col"><?= $file['file-size']; ?> kB</div>
+                        </div>
+                    <?php } ?>
 
                 </div>
 
@@ -275,22 +288,9 @@ require_once("./modules/directorymanage.php");
             </div>
         </div>
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="js/sb-admin-2.min.js"></script>
-
-        <!-- Page level plugins -->
-        <script src="vendor/chart.js/Chart.min.js"></script>
-
-        <!-- Page level custom scripts -->
-        <script src="js/demo/chart-area-demo.js"></script>
-        <script src="js/demo/chart-pie-demo.js"></script>
+        <!-- Rename the Directory Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <form class="modal-content" action="../client/modules/rename.php" method="POST">
@@ -312,6 +312,38 @@ require_once("./modules/directorymanage.php");
             </div>
         </div>
 
+        <!-- Right Click Menu! -->
+
+        <div id="context-menu">
+            <div class="item">Open</div>
+            <div class="item">Delete</div>
+            <div class="item">Rename</div>
+            <div class="item">Download</div>
+        </div>
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="vendor/chart.js/Chart.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="js/demo/chart-area-demo.js"></script>
+        <script src="js/demo/chart-pie-demo.js"></script>
+
+        <!-- Rename Event JS -->
+
+        <script src="../client/js/rename-event.js"></script>
+        <!-- context menu -->
+
+        <script src="../client/js/context-menu.js"></script>
 </body>
 
 </html>
