@@ -15,7 +15,12 @@ scope.forEach((item) => {
     contextMenu.style.left = `${mouseX}px`;
 
     contextMenu.classList.add("visible");
-    oldName = event.target.innerHTML;
+
+    if (location.href.split("=")[1] === undefined) {
+      oldName = event.target.innerHTML;
+    } else {
+      oldName = location.href.split("=")[1] + "/" + event.target.innerHTML;
+    }
   });
 });
 

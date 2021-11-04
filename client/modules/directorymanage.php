@@ -36,11 +36,16 @@ function deleteDirectory($urlDirectory)
 function renameDirectory($old, $new)
 {
 
-  if (file_exists("../files/$old")) {
+  if (strpos($old, '/') !== false) {
+    $dir = explode("/", $old);
+    echo $dir[0];
+    echo $dir[1];
+    rename("../files/$dir[0]/$dir[1]", "../files/$dir[0]/$new");
+    header("Location: ../dashboard.php");
+  } else {
     rename("../files/$old", "../files/$new");
+    header("Location: ../dashboard.php");
   }
-
-  header("Location: ../dashboard.php");
 }
 
 function filterDirectories()
