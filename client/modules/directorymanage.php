@@ -29,8 +29,25 @@ function uploadDirectory($urlDirectory)
 {
 }
 
-function deleteDirectory($urlDirectory)
+function deleteDirectory($old)
 {
+  if (strpos($old, '/') !== false) {
+    $dir = explode("/", $old);
+
+    if (is_dir("../files/$dir[0]/$dir[1]")) {
+      rmdir("../files/$dir[0]/$dir[1]");
+    } else {
+      unlink("../files/$dir[0]/$dir[1]");
+    }
+    header("Location: ../dashboard.php");
+  } else {
+    if (is_dir("../files/$old")) {
+      rmdir("../files/$old");
+    } else {
+      unlink("../files/$old");
+    }
+    header("Location: ../dashboard.php");
+  }
 }
 
 function renameDirectory($old, $new)
@@ -38,8 +55,7 @@ function renameDirectory($old, $new)
 
   if (strpos($old, '/') !== false) {
     $dir = explode("/", $old);
-    echo $dir[0];
-    echo $dir[1];
+
     rename("../files/$dir[0]/$dir[1]", "../files/$dir[0]/$new");
     header("Location: ../dashboard.php");
   } else {

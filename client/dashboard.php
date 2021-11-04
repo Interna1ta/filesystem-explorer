@@ -291,7 +291,7 @@ $filesAndDir = getFilesAndDir();
 
 
 
-        <!-- Rename the Directory Modal -->
+        <!-- Rename the Directory/File Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <form class="modal-content" action="../client/modules/rename.php" method="POST">
@@ -313,17 +313,42 @@ $filesAndDir = getFilesAndDir();
             </div>
         </div>
 
+
+        <!-- Delete the Directory/File Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form class="modal-content" onsubmit="(e) => {e.preventDefault()}" action="../client/modules/delete.php" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><input type="text" readonly class="form-control-plaintext" id="DeleteDirForm" name="delDirName"></h5>
+                        <button type=" button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Are you sure you want to delete this file?</h5>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
         <!-- Right Click Menu! -->
         <div id="context-menu" class="btn-group-mr-2">
             <button type="button" class="btn item">
                 Open
-            </button><button type="button" class="btn item" data-toggle="modal" data-target="#exampleModal">
+            </button>
+            <button type="button" class="btn item" data-toggle="modal" data-target="#exampleModal">
                 Rename
             </button>
             <button type="button" class="btn item">
                 Move
             </button>
-            <button type="button" class="btn item">
+            <button type="button" class="btn item" data-toggle="modal" data-target="#deleteModal">
                 Delete
             </button>
             <button type="button" class="btn item">

@@ -33,5 +33,11 @@ document.addEventListener("click", (e) => {
 window.addEventListener("click", (e) => {
   if (e.target.dataset.target === "#exampleModal") {
     document.getElementById("changeNameForm").value = oldName;
+    console.log(oldName);
+  }
+  if (e.target.dataset.target === "#deleteModal") {
+    document.getElementById("DeleteDirForm").value = oldName;
+
+    console.log(oldName);
   }
 });
