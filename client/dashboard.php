@@ -9,13 +9,11 @@ if (!isset($_SESSION['name'])) {
 
 require_once("./modules/filemanage.php");
 require_once("./modules/directorymanage.php");
-
-$filesAndDir = getFilesAndDir();
+require_once("./modules/utils.php");
 
 $rootPath = getRootPath();
-
+$baseUrl = getBaseUrl();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +31,7 @@ $rootPath = getRootPath();
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="<?= $baseUrl; ?>/php-filesystem-explorer/client/node_modules/@icon/simple-line-icons/simple-line-icons.css">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -68,14 +67,8 @@ $rootPath = getRootPath();
                         <div class="sidebar-brand-text dropdown no-arrow">
                         </div>
                     </div>
-
-
                 </div>
             </a>
-
-
-            <!-- Divider -->
-            <!-- <hr class="sidebar-divider my-0"> -->
 
             <!-- Nav Item - Dashboard -->
             <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" class="nav-item active btn bg-white d-flex justify-content-center m-4 align-middle">
@@ -85,10 +78,6 @@ $rootPath = getRootPath();
                 </label>
                 <input class="d-none" type="file" name='file' id='file' onchange="form.submit()" />
             </form>
-
-
-            <!-- Divider -->
-            <!-- <hr class="sidebar-divider"> -->
 
             <!-- Heading -->
             <div class="sidebar-heading">
@@ -136,7 +125,7 @@ $rootPath = getRootPath();
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -183,53 +172,51 @@ $rootPath = getRootPath();
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid p-0">
 
                     <!-- Content Row -->
 
-                    <div class="row bg-gray-200 text-gray-900 p-3 m-2 text-center">
-                        <div class="col">Name</div>
-                        <div class="col">Last modified</div>
-                        <div class="col">File Size</div>
+                    <div class="row bg-gray-200 text-gray-900 p-3 m-0 text-center">
+                        <div class="col col-6 d-flex">Name</div>
+                        <div class="col col-3 d-flex">Last modified</div>
+                        <div class="col col-3 d-flex">File Size</div>
                     </div>
 
                     <?php
-                    $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
+                        $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
 
-                    $filesAndDir = getFilesAndDir($folderName);
+                        $dirs = getDirs($folderName);
 
-                    $newArray = getArrayFilesAndDir($filesAndDir, $folderName);
-
-                    foreach ($newArray as $file) {
+                        foreach ($dirs as $dir) {
                     ?>
-
-
-
-
-                        <div class="row p-3 m-2 text-center">
-                            <div class="col">
-                                <?php if ($file['type'] === 'dir') { ?>
-                                    <button type="button" onclick="window.location.href='./dashboard.php?dir=<?= $file['name']; ?>'"><?= $file['name']; ?></button>
-                                <?php } else { ?>
-                                    <button type="button" onclick="window.location.href='<?= $file['url']; ?>'"><?= $file['name']; ?></button>
-                                <?php } ?>
+                        <div class="row m-0 p-3 text-center">
+                            <div class="col col-6 d-flex align-items-center">
+                                <img class="mr-3" height="20" width="20" src="<?= $baseUrl; ?>/php-filesystem-explorer/client/node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
+                                <button type="button" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'"><?= $dir['name']; ?></button>
                             </div>
-                            <div class="col"><?= $file['last-modified']; ?></div>
-                            <div class="col"><?= $file['file-size']; ?> kB</div>
+                            <div class="col col-3 d-flex align-items-center"><?= $dir['last-modified']; ?></div>
+                            <div class="col col-3 d-flex align-items-center"><?= $dir['file-size']; ?></div>
+                        </div>
+                    <?php } ?>
+
+                    <?php
+                        $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
+
+                        $files = getFiles($folderName);
+
+                        foreach ($files as $file) {
+                    ?>
+                        <div class="row m-0 p-3 text-center">
+                            <div class="col col-6 d-flex align-items-center">
+                                <img class="mr-3" height="20" width="20" src="<?= $baseUrl; ?>/php-filesystem-explorer/client/node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
+                                <button type="button" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" onclick="window.location.href='<?= $file['url']; ?>'"><?= $file['name']; ?></button>
+                            </div>
+                            <div class="col col-3 d-flex align-items-center"><?= $file['last-modified']; ?></div>
+                            <div class="col col-3 d-flex align-items-center"><?= $file['file-size']; ?></div>
                         </div>
                     <?php } ?>
 
                 </div>
-
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Your Website 2021</span>
-                        </div>
-                    </div>
-                </footer>
-                <!-- End of Footer -->
 
             </div>
             <!-- End of Content Wrapper -->
@@ -280,7 +267,6 @@ $rootPath = getRootPath();
         <script src="js/demo/chart-area-demo.js"></script>
         <script src="js/demo/chart-pie-demo.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
 
 </body>
 
