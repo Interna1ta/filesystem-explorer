@@ -49,7 +49,7 @@ $baseUrl = getBaseUrl();
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex justify-content-lg-center" href="index.php">
+            <div class="sidebar-brand d-flex justify-content-lg-center">
                 <a class="nav-link dropdown-toggle d-flex justify-content-lg-center" href=" #" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="mx-4 text-white sidebar-brand-text just">
                         <b>HI, <?php echo strtoupper($_SESSION['name']); ?></b>
@@ -71,7 +71,7 @@ $baseUrl = getBaseUrl();
                         </div>
                     </div>
                 </div>
-            </a>
+            </div>
 
             <!-- Nav Item - Dashboard -->
             <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" class="nav-item active btn bg-white d-flex justify-content-center m-4 align-middle">
@@ -117,13 +117,13 @@ $baseUrl = getBaseUrl();
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content-wrapper" class="d-flex flex-column bg-white">
 
             <!-- Main Content -->
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top shadow">
+                <nav class="navbar navbar-expand navbar-light border-bottom topbar static-top">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -133,7 +133,7 @@ $baseUrl = getBaseUrl();
                     <!-- Topbar Search -->
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control bg-light border-0 small py-2 px-3" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
                                     <i class="fas fa-search fa-sm"></i>
@@ -174,15 +174,11 @@ $baseUrl = getBaseUrl();
 
                     <!-- Content Row -->
 
-                    <div class="row bg-gray-200 text-gray-900 p-3 m-0 text-center">
+                    <div class="row text-gray-900 pt-4 pb-2 px-3 m-0 text-center border-bottom">
                         <div class="col col-6 d-flex">Name</div>
                         <div class="col col-3 d-flex">Last modified</div>
                         <div class="col col-3 d-flex">File Size</div>
                     </div>
-
-
-
-
 
                     <?php
                     $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
@@ -191,14 +187,20 @@ $baseUrl = getBaseUrl();
 
                     foreach ($dirs as $dir) {
                     ?>
-                        <div class="row m-0 p-3 text-center">
-                            <div class="col col-6 d-flex align-items-center">
-                                <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
-                                <button class="btn btn-light file__area" type="button" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'"><?= $dir['name']; ?></button>
+                        <button class="btn btn-light bg-white border-0 file__area w-100 p-0" type="button" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'">
+                            <div class="row m-0 p-3 text-center border-bottom">
+                                <div class="col col-6 d-flex align-items-center">
+                                    <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
+                                    <span class=""><?= $dir['name']; ?></span>
+                                </div>
+                                <div class="col col-3 d-flex align-items-center">
+                                    <span class=""><?= $dir['last-modified']; ?></span>
+                                </div>
+                                <div class="col col-3 d-flex align-items-center">
+                                    <span class=""><?= $dir['file-size']; ?></span>
+                                </div>
                             </div>
-                            <div class="col col-3 d-flex align-items-center"><?= $dir['last-modified']; ?></div>
-                            <div class="col col-3 d-flex align-items-center"><?= $dir['file-size']; ?></div>
-                        </div>
+                        </button>
                     <?php } ?>
 
                     <?php
@@ -208,14 +210,20 @@ $baseUrl = getBaseUrl();
 
                     foreach ($files as $file) {
                     ?>
-                        <div class="row m-0 p-3 text-center">
-                            <div class="col col-6 d-flex align-items-center">
-                                <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
-                                <button class="btn btn-light file__area" type="button" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" onclick="window.location.href='<?= $file['url']; ?>'"><?= $file['name']; ?></button>
+                        <button class="btn btn-light bg-white border-0 file__area w-100 p-0" type="button" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" onclick="window.location.href='<?= $file['url']; ?>'">
+                            <div class="row m-0 p-3 text-center border-bottom">
+                                <div class="col col-6 d-flex align-items-center">
+                                    <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
+                                    <span class=""><?= $file['name']; ?></span>
+                                </div>
+                                <div class="col col-3 d-flex align-items-center">
+                                    <span><?= $file['last-modified']; ?></span>
+                                </div>
+                                <div class="col col-3 d-flex align-items-center">
+                                    <span><?= $file['file-size']; ?></span>
+                                </div>
                             </div>
-                            <div class="col col-3 d-flex align-items-center"><?= $file['last-modified']; ?></div>
-                            <div class="col col-3 d-flex align-items-center"><?= $file['file-size']; ?></div>
-                        </div>
+                        </button>
                     <?php } ?>
 
                 </div>
@@ -260,7 +268,7 @@ $baseUrl = getBaseUrl();
                 <form class="modal-content" action="../client/modules/rename.php" method="POST">
                     <div class="modal-header">
                         <h5 class="modal-title"><input type="text" readonly class="form-control-plaintext" id="changeNameForm" name="oldDirName"></h5>
-                        <button type=" button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -283,7 +291,7 @@ $baseUrl = getBaseUrl();
                 <form class="modal-content" onsubmit="(e) => {e.preventDefault()}" action="../client/modules/delete.php" method="POST">
                     <div class="modal-header">
                         <h5 class="modal-title"><input type="text" readonly class="form-control-plaintext" id="DeleteDirForm" name="delDirName"></h5>
-                        <button type=" button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
