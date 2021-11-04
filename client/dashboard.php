@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);
 
 session_start();
 
@@ -10,6 +11,8 @@ require_once("./modules/filemanage.php");
 require_once("./modules/directorymanage.php");
 
 $filesAndDir = getFilesAndDir();
+
+$rootPath = getRootPath();
 
 ?>
 
@@ -75,11 +78,14 @@ $filesAndDir = getFilesAndDir();
             <!-- <hr class="sidebar-divider my-0"> -->
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="btn bg-white d-flex justify-content-center m-4 align-middle" href="index.php">
+            <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" class="nav-item active btn bg-white d-flex justify-content-center m-4 align-middle">
+                <label for='file' class='btn btn-white'>
                     <i class="fa fa-plus align-middle fa-space-shuttle fa-rotate-270" aria-hidden="true"></i>
-                    <span>Upload New</span></a>
-            </li>
+                    Upload File
+                </label>
+                <input class="hidden" type="file" name='file' id='file' onchange="form.submit()" />
+            </form>
+
 
             <!-- Divider -->
             <!-- <hr class="sidebar-divider"> -->
@@ -90,36 +96,10 @@ $filesAndDir = getFilesAndDir();
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Trip to Seville</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.php">Buttons</a>
-                        <a class="collapse-item" href="cards.php">Cards</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Trip to Barcelona</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.php">Colors</a>
-                        <a class="collapse-item" href="utilities-border.php">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.php">Animations</a>
-                        <a class="collapse-item" href="utilities-other.php">Other</a>
-                    </div>
-                </div>
-            </li>
+            <?php
+            $rootFiles = getPathContent($rootPath);
+            echo (renderFolders($rootFiles));
+            ?>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -137,14 +117,6 @@ $filesAndDir = getFilesAndDir();
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.php">Login</a>
-                        <a class="collapse-item" href="register.php">Register</a>
-                        <a class="collapse-item" href="forgot-password.php">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.php">404 Page</a>
-                        <a class="collapse-item" href="blank.php">Blank Page</a>
                     </div>
                 </div>
             </li>
@@ -225,6 +197,10 @@ $filesAndDir = getFilesAndDir();
 
                     foreach ($newArray as $file) {
                     ?>
+
+
+
+
                         <div class="row p-3 m-2 text-center">
                             <div class="col">
                                 <?php if ($file['type'] === 'dir') { ?>
@@ -298,6 +274,8 @@ $filesAndDir = getFilesAndDir();
         <!-- Page level custom scripts -->
         <script src="js/demo/chart-area-demo.js"></script>
         <script src="js/demo/chart-pie-demo.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 
 </body>
 
