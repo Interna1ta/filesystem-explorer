@@ -79,7 +79,7 @@ $baseUrl = getBaseUrl();
                     <i class="fa fa-plus align-middle fa-space-shuttle fa-rotate-270" aria-hidden="true"></i>
                     Upload File
                 </label>
-                <input class="hidden" type="file" name='file' id='file' onchange="form.submit()" />
+                <input class="d-none" type="file" name='file' id='file' onchange="form.submit()" />
             </form>
 
             <!-- Heading -->
