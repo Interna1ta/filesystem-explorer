@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);
 
 session_start();
 
@@ -9,11 +10,11 @@ if (!isset($_SESSION['name'])) {
 
 require_once("./modules/filemanage.php");
 require_once("./modules/directorymanage.php");
+require_once("./modules/utils.php");
 
-$filesAndDir = getFilesAndDir();
-
+$rootPath = getRootPath();
+$baseUrl = getBaseUrl();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,6 +32,7 @@ $filesAndDir = getFilesAndDir();
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="./node_modules/@icon/simple-line-icons/simple-line-icons.css">
 
     <link rel="stylesheet" href="./context-menu.css">
 
@@ -68,24 +70,17 @@ $filesAndDir = getFilesAndDir();
                         <div class="sidebar-brand-text dropdown no-arrow">
                         </div>
                     </div>
-
-
                 </div>
             </a>
 
-
-            <!-- Divider -->
-            <!-- <hr class="sidebar-divider my-0"> -->
-
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="btn bg-white d-flex justify-content-center m-4 align-middle" href="index.php">
+            <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" class="nav-item active btn bg-white d-flex justify-content-center m-4 align-middle">
+                <label for='file' class='btn btn-white'>
                     <i class="fa fa-plus align-middle fa-space-shuttle fa-rotate-270" aria-hidden="true"></i>
-                    <span>Upload New</span></a>
-            </li>
-
-            <!-- Divider -->
-            <!-- <hr class="sidebar-divider"> -->
+                    Upload File
+                </label>
+                <input class="hidden" type="file" name='file' id='file' onchange="form.submit()" />
+            </form>
 
             <!-- Heading -->
             <div class="sidebar-heading">
@@ -93,36 +88,10 @@ $filesAndDir = getFilesAndDir();
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Trip to Seville</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.php">Buttons</a>
-                        <a class="collapse-item" href="cards.php">Cards</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Trip to Barcelona</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.php">Colors</a>
-                        <a class="collapse-item" href="utilities-border.php">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.php">Animations</a>
-                        <a class="collapse-item" href="utilities-other.php">Other</a>
-                    </div>
-                </div>
-            </li>
+            <?php
+            $rootFiles = getPathContent($rootPath);
+            echo (renderFolders($rootFiles));
+            ?>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -140,14 +109,6 @@ $filesAndDir = getFilesAndDir();
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.php">Login</a>
-                        <a class="collapse-item" href="register.php">Register</a>
-                        <a class="collapse-item" href="forgot-password.php">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.php">404 Page</a>
-                        <a class="collapse-item" href="blank.php">Blank Page</a>
                     </div>
                 </div>
             </li>
@@ -162,7 +123,7 @@ $filesAndDir = getFilesAndDir();
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -209,14 +170,14 @@ $filesAndDir = getFilesAndDir();
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid p-0">
 
                     <!-- Content Row -->
 
-                    <div class="row bg-gray-200 text-gray-900 p-3 m-2 text-center">
-                        <div class="col">Name</div>
-                        <div class="col">Last modified</div>
-                        <div class="col">File Size</div>
+                    <div class="row bg-gray-200 text-gray-900 p-3 m-0 text-center">
+                        <div class="col col-6 d-flex">Name</div>
+                        <div class="col col-3 d-flex">Last modified</div>
+                        <div class="col col-3 d-flex">File Size</div>
                     </div>
 
 
@@ -226,36 +187,38 @@ $filesAndDir = getFilesAndDir();
                     <?php
                     $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
 
-                    $filesAndDir = getFilesAndDir($folderName);
+                    $dirs = getDirs($folderName);
 
-                    $newArray = getArrayFilesAndDir($filesAndDir, $folderName);
-
-                    foreach ($newArray as $file) {
+                    foreach ($dirs as $dir) {
                     ?>
-                        <div class="row p-3 m-2 text-center">
-                            <div class="col">
-                                <?php if ($file['type'] === 'dir') { ?>
-                                    <button type="button" onclick="window.location.href='./dashboard.php?dir=<?= $file['name']; ?>'" class='file__area btn btn-light'><?= $file['name']; ?></button>
-                                <?php } else { ?>
-                                    <button type="button" onclick="window.location.href='<?= $file['url']; ?>'" class='file__area btn btn-light'><?= $file['name']; ?></button>
-                                <?php } ?>
+                        <div class="row m-0 p-3 text-center">
+                            <div class="col col-6 d-flex align-items-center">
+                                <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
+                                <button class="btn btn-light file__area" type="button" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'"><?= $dir['name']; ?></button>
                             </div>
-                            <div class="col"><?= $file['last-modified']; ?></div>
-                            <div class="col"><?= $file['file-size']; ?> kB</div>
+                            <div class="col col-3 d-flex align-items-center"><?= $dir['last-modified']; ?></div>
+                            <div class="col col-3 d-flex align-items-center"><?= $dir['file-size']; ?></div>
+                        </div>
+                    <?php } ?>
+
+                    <?php
+                    $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
+
+                    $files = getFiles($folderName);
+
+                    foreach ($files as $file) {
+                    ?>
+                        <div class="row m-0 p-3 text-center">
+                            <div class="col col-6 d-flex align-items-center">
+                                <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
+                                <button class="btn btn-light file__area" type="button" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" onclick="window.location.href='<?= $file['url']; ?>'"><?= $file['name']; ?></button>
+                            </div>
+                            <div class="col col-3 d-flex align-items-center"><?= $file['last-modified']; ?></div>
+                            <div class="col col-3 d-flex align-items-center"><?= $file['file-size']; ?></div>
                         </div>
                     <?php } ?>
 
                 </div>
-
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Your Website 2021</span>
-                        </div>
-                    </div>
-                </footer>
-                <!-- End of Footer -->
 
             </div>
             <!-- End of Content Wrapper -->
@@ -372,6 +335,7 @@ $filesAndDir = getFilesAndDir();
         <!-- Page level custom scripts -->
         <script src="js/demo/chart-area-demo.js"></script>
         <script src="js/demo/chart-pie-demo.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 
         <!-- context menu -->
