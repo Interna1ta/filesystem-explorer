@@ -31,7 +31,7 @@ $baseUrl = getBaseUrl();
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link rel="stylesheet" href="<?= $baseUrl; ?>/php-filesystem-explorer/client/node_modules/@icon/simple-line-icons/simple-line-icons.css">
+    <link rel="stylesheet" href="./node_modules/@icon/simple-line-icons/simple-line-icons.css">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -183,15 +183,15 @@ $baseUrl = getBaseUrl();
                     </div>
 
                     <?php
-                        $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
+                    $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
 
-                        $dirs = getDirs($folderName);
+                    $dirs = getDirs($folderName);
 
-                        foreach ($dirs as $dir) {
+                    foreach ($dirs as $dir) {
                     ?>
                         <div class="row m-0 p-3 text-center">
                             <div class="col col-6 d-flex align-items-center">
-                                <img class="mr-3" height="20" width="20" src="<?= $baseUrl; ?>/php-filesystem-explorer/client/node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
+                                <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
                                 <button type="button" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'"><?= $dir['name']; ?></button>
                             </div>
                             <div class="col col-3 d-flex align-items-center"><?= $dir['last-modified']; ?></div>
@@ -200,15 +200,15 @@ $baseUrl = getBaseUrl();
                     <?php } ?>
 
                     <?php
-                        $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
+                    $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
 
-                        $files = getFiles($folderName);
+                    $files = getFiles($folderName);
 
-                        foreach ($files as $file) {
+                    foreach ($files as $file) {
                     ?>
                         <div class="row m-0 p-3 text-center">
                             <div class="col col-6 d-flex align-items-center">
-                                <img class="mr-3" height="20" width="20" src="<?= $baseUrl; ?>/php-filesystem-explorer/client/node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
+                                <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
                                 <button type="button" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" onclick="window.location.href='<?= $file['url']; ?>'"><?= $file['name']; ?></button>
                             </div>
                             <div class="col col-3 d-flex align-items-center"><?= $file['last-modified']; ?></div>
