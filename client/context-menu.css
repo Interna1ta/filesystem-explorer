@@ -23,4 +23,8 @@
 #context-menu.visible {
   transform: scale(1);
   transition: transform 200ms ease-in-out;
+  display: flex;
+  flex-direction: column;
 }
+
+

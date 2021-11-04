@@ -234,9 +234,9 @@ $filesAndDir = getFilesAndDir();
                         <div class="row p-3 m-2 text-center">
                             <div class="col">
                                 <?php if ($file['type'] === 'dir') { ?>
-                                    <button type="button" onclick="window.location.href='./dashboard.php?dir=<?= $file['name']; ?>'" class='btn btn-primary'><?= $file['name']; ?></button>
+                                    <button type="button" onclick="window.location.href='./dashboard.php?dir=<?= $file['name']; ?>'" class='file__area btn btn-light'><?= $file['name']; ?></button>
                                 <?php } else { ?>
-                                    <button type="button" onclick="window.location.href='<?= $file['url']; ?>'" class='btn btn-primary'><?= $file['name']; ?></button>
+                                    <button type="button" onclick="window.location.href='<?= $file['url']; ?>'" class='file__area btn btn-light'><?= $file['name']; ?></button>
                                 <?php } ?>
                             </div>
                             <div class="col"><?= $file['last-modified']; ?></div>
@@ -313,12 +313,21 @@ $filesAndDir = getFilesAndDir();
         </div>
 
         <!-- Right Click Menu! -->
-
-        <div id="context-menu">
-            <div class="item">Open</div>
-            <div class="item">Delete</div>
-            <div class="item">Rename</div>
-            <div class="item">Download</div>
+        <div id="context-menu" class="btn-group-mr-2">
+            <button type="button" class="btn item">
+                Open
+            </button><button type="button" class="btn item" data-toggle="modal" data-target="#exampleModal">
+                Rename
+            </button>
+            <button type="button" class="btn item">
+                Move
+            </button>
+            <button type="button" class="btn item">
+                Delete
+            </button>
+            <button type="button" class="btn item">
+                Properties
+            </button>
         </div>
 
         <!-- Bootstrap core JavaScript-->
@@ -338,12 +347,10 @@ $filesAndDir = getFilesAndDir();
         <script src="js/demo/chart-area-demo.js"></script>
         <script src="js/demo/chart-pie-demo.js"></script>
 
-        <!-- Rename Event JS -->
 
-        <script src="../client/js/rename-event.js"></script>
         <!-- context menu -->
 
-        <script src="../client/js/context-menu.js"></script>
+        <script src="../client/js/context-menu-rename.js"></script>
 </body>
 
 </html>
