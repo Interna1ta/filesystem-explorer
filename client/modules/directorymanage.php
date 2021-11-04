@@ -1,6 +1,5 @@
 <?php
-
-require_once("./modules/utils.php");
+require_once 'utils.php';
 
 function getDirs($folderName = "files")
 {
@@ -43,24 +42,53 @@ function createDirectory($newDirectoryName, $folderName = "files")
   }
 }
 
-function openDirectory($urlDirectory)
+function openDirectory()
 {
+
+  $userDirectory = "../client/files";
+
+  $data =  scandir($userDirectory);
+
+  return $data;
 }
 
 function uploadDirectory($urlDirectory)
 {
 }
 
-function deleteDirectory($urlDirectory)
+function deleteDirectory($old)
 {
+  if (strpos($old, '/') !== false) {
+    $dir = explode("/", $old);
+
+    if (is_dir("../files/$dir[0]/$dir[1]")) {
+      rmdir("../files/$dir[0]/$dir[1]");
+    } else {
+      unlink("../files/$dir[0]/$dir[1]");
+    }
+    header("Location: ../dashboard.php");
+  } else {
+    if (is_dir("../files/$old")) {
+      rmdir("../files/$old");
+    } else {
+      unlink("../files/$old");
+    }
+    header("Location: ../dashboard.php");
+  }
 }
 
-function renameDirectory($urlDirectory)
+function renameDirectory($old, $new)
 {
-}
 
-function filterDirectories()
-{
+  if (strpos($old, '/') !== false) {
+    $dir = explode("/", $old);
+
+    rename("../files/$dir[0]/$dir[1]", "../files/$dir[0]/$new");
+    header("Location: ../dashboard.php");
+  } else {
+    rename("../files/$old", "../files/$new");
+    header("Location: ../dashboard.php");
+  }
 }
 
 function getCreationDate($file)

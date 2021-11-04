@@ -2,36 +2,21 @@
 
 function formatSizeUnits($bytes)
 {
-    if ($bytes >= 1073741824)
-    {
+    if ($bytes >= 1073741824) {
         $bytes = number_format($bytes / 1073741824, 1) . ' GB';
-    }
-    elseif ($bytes >= 10485760)
-    {
+    } elseif ($bytes >= 10485760) {
         $bytes = number_format($bytes / 1048576) . ' MB';
-    }
-    elseif ($bytes >= 1048576)
-    {
+    } elseif ($bytes >= 1048576) {
         $bytes = number_format($bytes / 1048576, 1) . ' MB';
-    }
-    elseif ($bytes >= 10240)
-    {
+    } elseif ($bytes >= 10240) {
         $bytes = number_format($bytes / 1024) . ' KB';
-    }
-    elseif ($bytes >= 1024)
-    {
+    } elseif ($bytes >= 1024) {
         $bytes = number_format($bytes / 1024, 1) . ' KB';
-    }
-    elseif ($bytes > 1)
-    {
+    } elseif ($bytes > 1) {
         $bytes = $bytes . ' bytes';
-    }
-    elseif ($bytes == 1)
-    {
+    } elseif ($bytes == 1) {
         $bytes = $bytes . ' byte';
-    }
-    else
-    {
+    } else {
         $bytes = '0 bytes';
     }
 
@@ -41,43 +26,43 @@ function formatSizeUnits($bytes)
 function getIcon($type)
 {
     switch ($type) {
-    case '':
-    case 'zip':
-    case 'rar':
-        return 'folder.svg';
-        break;
-    case 'doc':
-    case 'odt':
-    case 'pdf':
-        return 'doc.svg';
-        break;
-    case 'exe':
-    case 'dmg':
-        return 'grid.svg';
-        break;
-    case 'mp3':
-        return 'music-tone.svg';
-        break;
-    case 'mp4':
-        return 'film.svg';
-        break;
-    case 'jpg':
-    case 'png':
-    case 'svg':
-        return 'picture.svg';
-        break;
-    case 'ppt':
-        return 'pie-chart.svg';
-        break;
-    case 'txt':
-        return 'note.svg';
-    default:
-        return 'question.svg';
+        case '':
+        case 'zip':
+        case 'rar':
+            return 'folder.svg';
+            break;
+        case 'doc':
+        case 'odt':
+        case 'pdf':
+            return 'doc.svg';
+            break;
+        case 'exe':
+        case 'dmg':
+            return 'grid.svg';
+            break;
+        case 'mp3':
+            return 'music-tone.svg';
+            break;
+        case 'mp4':
+            return 'film.svg';
+            break;
+        case 'jpg':
+        case 'png':
+        case 'svg':
+            return 'picture.svg';
+            break;
+        case 'ppt':
+            return 'pie-chart.svg';
+            break;
+        case 'txt':
+            return 'note.svg';
+        default:
+            return 'question.svg';
     }
 }
 
 function getBaseUrl()
 {
-    $protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://';
+    $protocol = stripos($_SERVER['SERVER_PROTOCOL'], 'https') === 0 ? 'https://' : 'http://';
     return $protocol . $_SERVER['HTTP_HOST'];
 }
