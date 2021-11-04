@@ -176,6 +176,29 @@ function renderFolders($files)
     echo '<hr class="sidebar-divider d-none d-md-block" />';
 }
 
+function renderFavourites($files)
+{
+    echo '<li class="nav-item">';
+    echo "<form action='form.php' method='post' class=''>";
+    echo "<button type='submit' name='all' class='bg-dark pl-4 nav-link btn-link collapsed' value='./'/'>";
+    echo "<i class='fa fa-inbox' aria-hidden='true'></i>";
+    echo "All";
+    echo "</button>";
+    echo "</form>";
+    foreach ($files as $file) {
+        if (is_dir($file)) {
+            echo "<form action='form.php' method='post'>";
+            echo "<button type='submit' name='path' class='bg-dark pl-4 nav-link btn-link collapsed' value='$file'/'>";
+            echo '<i class="fas fa-folder"></i>';
+            echo "$file";
+            echo "</button>";
+        }
+    }
+    echo '</li>';
+    //    Divider
+    echo '<hr class="sidebar-divider d-none d-md-block" />';
+}
+
 // function renderAllContent($files)
 // {
 //     foreach ($files as $file) {

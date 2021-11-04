@@ -43,3 +43,19 @@ function getCreationDate($file)
     echo "n/a";
   }
 }
+
+function getSize($file)
+{
+  if (file_exists($file)) {
+    $fileSize = ((int)filesize($file));
+    if ($fileSize < 1024) {
+      return $fileSize . " bytes";
+    } else if ($fileSize < 1048576) {
+      return round($fileSize / 1024, 2) . " KB";
+    } else if ($fileSize <= 10485760) {
+      return round($fileSize / 1048576, 2) . " MB";
+    } else {
+      return "File too big";
+    }
+  }
+}

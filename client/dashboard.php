@@ -83,7 +83,7 @@ $rootPath = getRootPath();
                     <i class="fa fa-plus align-middle fa-space-shuttle fa-rotate-270" aria-hidden="true"></i>
                     Upload File
                 </label>
-                <input class="hidden" type="file" name='file' id='file' onchange="form.submit()" />
+                <input class="d-none" type="file" name='file' id='file' onchange="form.submit()" />
             </form>
 
 
@@ -92,13 +92,18 @@ $rootPath = getRootPath();
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Folders
+                <i class="fa fa-star-o pull-left" aria-hidden="true"></i>
+                Favorite
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <?php
+            <!-- ?php
             $rootFiles = getPathContent($rootPath);
             echo (renderFolders($rootFiles));
+            ?> -->
+            <?php
+            $rootFiles = getPathContent($rootPath);
+            echo (renderFavourites($rootFiles));
             ?>
 
             <!-- Divider -->
