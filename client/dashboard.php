@@ -78,7 +78,7 @@ $rootPath = getRootPath();
             <!-- <hr class="sidebar-divider my-0"> -->
 
             <!-- Nav Item - Dashboard -->
-            <form action="./modules/upload.php" method="post" enctype="multipart/form-data" class="nav-item active btn bg-white d-flex justify-content-center m-4 align-middle">
+            <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" class="nav-item active btn bg-white d-flex justify-content-center m-4 align-middle">
                 <label for='file' class='btn btn-white'>
                     <i class="fa fa-plus align-middle fa-space-shuttle fa-rotate-270" aria-hidden="true"></i>
                     Upload File
@@ -98,7 +98,7 @@ $rootPath = getRootPath();
             <!-- Nav Item - Pages Collapse Menu -->
             <?php
             $rootFiles = getPathContent($rootPath);
-            echo (renderOnlyFolders($rootFiles));
+            echo (renderFolders($rootFiles));
             ?>
 
             <!-- Divider -->

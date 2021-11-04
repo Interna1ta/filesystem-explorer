@@ -1,6 +1,6 @@
 <?php
-    session_start();
+session_start();
 
-    $path = $_POST['path'];
-    $_SESSION['path'] = $path;
-    header('Location: ./');
+$path = $_POST['path'];
+$_SESSION['path'] = $path;
+header('Location: ./dashboard.php');

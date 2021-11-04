@@ -94,30 +94,30 @@ function openFile($folderName = "files", $newFileName, $fileExtension = "txt")
     }
 }
 
-function uploadFile($folderName)
-{
+// function uploadFile($folderName)
+// {
 
-    $target_dir = "./" . $folderName . "/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-    // Check if image file is a actual image or fake image
-    if (isset($_POST["submit"])) {
-        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-        if ($check !== false) {
-            echo "<p>File is an image - " . $check["mime"] . ".</p>";
-            $uploadOk = 1;
-            if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file)) {
-                echo "<p>El fichero es válido y se subió con éxito.</p>";
-            } else {
-                echo "<p>¡Posible ataque de subida de ficheros!</p>";
-            }
-        } else {
-            echo "File is not an image.";
-            $uploadOk = 0;
-        }
-    }
-}
+//     $target_dir = "./" . $folderName . "/";
+//     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+//     $uploadOk = 1;
+//     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+//     // Check if image file is a actual image or fake image
+//     if (isset($_POST["submit"])) {
+//         $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+//         if ($check !== false) {
+//             echo "<p>File is an image - " . $check["mime"] . ".</p>";
+//             $uploadOk = 1;
+//             if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file)) {
+//                 echo "<p>El fichero es válido y se subió con éxito.</p>";
+//             } else {
+//                 echo "<p>¡Posible ataque de subida de ficheros!</p>";
+//             }
+//         } else {
+//             echo "File is not an image.";
+//             $uploadOk = 0;
+//         }
+//     }
+// }
 
 function deleteFile($folderName, $newFileName, $fileExtension)
 {
@@ -153,13 +153,13 @@ function getPathContent($path)
 }
 
 
-function renderOnlyFolders($files)
+function renderFolders($files)
 {
     echo '<li class="nav-item">';
     echo "<form action='form.php' method='post' class=''>";
-    echo "<button type='submit' name='home' class='bg-dark pl-4 nav-link btn-link collapsed' value='./'/'>";
-    echo '<i class="fas fa-home"></i>';
-    echo "Home";
+    echo "<button type='submit' name='all' class='bg-dark pl-4 nav-link btn-link collapsed' value='./'/'>";
+    echo "<i class='fa fa-inbox' aria-hidden='true'></i>";
+    echo "All";
     echo "</button>";
     echo "</form>";
     foreach ($files as $file) {
@@ -176,30 +176,30 @@ function renderOnlyFolders($files)
     echo '<hr class="sidebar-divider d-none d-md-block" />';
 }
 
-function renderAllContent($files)
-{
-    foreach ($files as $file) {
-        echo "<div class='d-flex w-100 justify-content-between'>";
-        echo "<span class='d-flex w-40 pr-4'>";
-        echo "<i class='fas fa-fw fa-folder mr-2 '></i>";
-        echo "<p class='w-100 mb-0'>" . $file . "</p>";
+// function renderAllContent($files)
+// {
+//     foreach ($files as $file) {
+//         echo "<div class='d-flex w-100 justify-content-between'>";
+//         echo "<span class='d-flex w-40 pr-4'>";
+//         echo "<i class='fas fa-fw fa-folder mr-2 '></i>";
+//         echo "<p class='w-100 mb-0'>" . $file . "</p>";
 
-        echo "<form action='' method='POST'>";
-        echo "<button class='bg-white border-0 rename' value='$file' name='rename' type='button' id='renameFileButton'><i class='far fa-edit text-right'></i></button>";
-        echo '</form>';
+//         echo "<form action='' method='POST'>";
+//         echo "<button class='bg-white border-0 rename' value='$file' name='rename' type='button' id='renameFileButton'><i class='far fa-edit text-right'></i></button>";
+//         echo '</form>';
 
-        echo "</span>";
-        echo "<p class='w-15 mb-0'>";
-        echo getCreationDate($file);
-        echo "</p>";
-        echo "<p class='w-15 mb-0'>";
+//         echo "</span>";
+//         echo "<p class='w-15 mb-0'>";
+//         echo getCreationDate($file);
+//         echo "</p>";
+//         echo "<p class='w-15 mb-0'>";
 
-        echo "<form action='functions/deleteFiles.php' method='POST'>";
-        echo '<button class="bg-white border-0" value=' . $file . ' name="trash"><i class="fas fa-trash"></i></button>';
-        echo '</form>';
+//         echo "<form action='functions/deleteFiles.php' method='POST'>";
+//         echo '<button class="bg-white border-0" value=' . $file . ' name="trash"><i class="fas fa-trash"></i></button>';
+//         echo '</form>';
 
-        echo "</span>";
-        echo "</div>";
-        echo '<hr class="sidebar-divider d-none d-md-block" />';
-    }
-}
+//         echo "</span>";
+//         echo "</div>";
+//         echo '<hr class="sidebar-divider d-none d-md-block" />';
+//     }
+// }
