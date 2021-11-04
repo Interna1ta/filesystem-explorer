@@ -1,6 +1,9 @@
 <?php
 
 session_start();
+$currentPath = $_SESSION['path'];
+
+
 
 if (!isset($_SESSION['name'])) {
     header('Location: ./index.php');
