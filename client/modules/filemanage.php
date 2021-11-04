@@ -46,7 +46,7 @@ function getRootPath()
     return getcwd() . "/";
 }
 
-function createFile($folderName = "files", $newFileName, $fileContent = "", $fileExtension = "txt")
+function createFile($newFileName, $folderName = "files", $fileContent = "", $fileExtension = "txt")
 {
 
     try {
@@ -68,7 +68,7 @@ function createFile($folderName = "files", $newFileName, $fileContent = "", $fil
     }
 }
 
-function openFile($folderName = "files", $newFileName, $fileExtension = "txt")
+function openFile($newFileName, $folderName = "files", $fileExtension = "txt")
 {
 
     try {
