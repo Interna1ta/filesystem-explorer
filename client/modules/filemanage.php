@@ -1,12 +1,34 @@
 <?php
 
-function getFilesAndDir($folderName = "files")
+require_once("./modules/utils.php");
+
+function getFiles($folderName = "files")
 {
-
     $folderPath = getFolderPath($folderName);
+    $filesAndDirs = array_diff(scandir($folderPath), array('.', '..', '.DS_Store'));
 
-    return array_diff(scandir($folderPath), array('.', '..', '.DS_Store'));
+    $files = array();
+    $i = 0;
+
+    foreach ($filesAndDirs as $file) {
+        $filePath = $folderPath . '/' . $file;
+        $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+
+        if (is_file($filePath)) {
+            $files[$i]['type'] = $fileType;
+            $files[$i]['icon'] = getIcon($fileType);
+            $files[$i]['url'] = $filePath;
+            $files[$i]['name'] = $file;
+            $files[$i]['file-size'] = formatSizeUnits(filesize($filePath));
+            $files[$i]['last-modified'] = date("M d, Y", filemtime($filePath));
+        }
+
+        $i += 1;
+    }
+
+    return $files;
 }
+
 
 function getFolderPath($folderName)
 {
@@ -22,29 +44,6 @@ function getRootPath()
     getcwd();
     chdir("./");
     return getcwd() . "/";
-}
-
-function getArrayFilesAndDir($filesAndDir, $folderName = "files")
-{
-
-    $folderPath = getFolderPath($folderName);
-
-    $newArray = array();
-    $i = 0;
-
-    foreach ($filesAndDir as $file) {
-        $filePath = $folderPath . '/' . $file;
-
-        $newArray[$i]['type'] = is_dir($filePath) ? 'dir' : 'file';
-        $newArray[$i]['url'] = $filePath;
-        $newArray[$i]['name'] = $file;
-        $newArray[$i]['file-size'] = filesize($filePath);
-        $newArray[$i]['last-modified'] = date("F d Y H:i:s.", filemtime($filePath));
-
-        $i += 1;
-    }
-
-    return $newArray;
 }
 
 function createFile($folderName = "files", $newFileName, $fileContent = "", $fileExtension = "txt")
