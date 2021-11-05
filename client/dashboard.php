@@ -46,7 +46,7 @@ $baseUrl = getBaseUrl();
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="./node_modules/@icon/simple-line-icons/simple-line-icons.css">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <link rel="stylesheet" href="./context-menu.css">
 
     <!-- Custom styles for this template-->
@@ -96,10 +96,6 @@ $baseUrl = getBaseUrl();
             </form>
 
             <!-- Heading -->
-            <div class="sidebar-heading">
-                <i class="fa fa-star-o pull-left" aria-hidden="true"></i>
-                Favorite
-            </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <!-- ?php
@@ -112,7 +108,18 @@ $baseUrl = getBaseUrl();
                 Folder
             </button>
             <hr>
-
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                    <span>
+                        <i class="fas fa-star"></i>
+                        <b>Favourite</b>
+                    </span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                    </div>
+                </div>
+            </li>
             <?php
             $rootFiles = getPathContent($rootPath);
             echo (renderFavourites($rootFiles));
@@ -121,15 +128,13 @@ $baseUrl = getBaseUrl();
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
-                Others
-            </div>
-
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Bin</span>
+                    <span>
+                        <i class="fas fa-trash"></i>
+                        Bin
+                    </span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -138,6 +143,8 @@ $baseUrl = getBaseUrl();
             </li>
 
         </ul>
+
+
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -213,6 +220,9 @@ $baseUrl = getBaseUrl();
                         <button class="btn btn-light bg-white border-0 file__area w-100 p-0" type="button" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'">
                             <div class="row m-0 p-3 text-center border-bottom">
                                 <div class="col col-6 d-flex align-items-center">
+                                    <form method="GET">
+                                        <input type="submit" class="button d-none" value="Next" type="text" id="pname" name="pname"><i class="far fa-star pr-4"></i>
+                                    </form>
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
                                     <span class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $dir['name']; ?></span>
                                 </div>
@@ -232,10 +242,10 @@ $baseUrl = getBaseUrl();
 
                     foreach ($files as $file) {
                     ?>
-                        <button class="btn btn-light bg-white border-0 file__area w-100 p-0" type="button" onclick="window.location.href='<?= $file['url']; ?>'">
+                        <button class="btn btn-light bg-white border-0 file__area w-100 pr-4" type="button" onclick="window.location.href='<?= $file['url']; ?>'">
                             <div class="row m-0 p-3 text-center border-bottom">
                                 <div class="col col-6 d-flex align-items-center">
-                                    <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
+                                    <img class="mr-3 ml-4" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
                                     <span class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $file['name']; ?></span>
                                 </div>
                                 <div class="col col-3 d-flex align-items-center">
@@ -379,16 +389,19 @@ $baseUrl = getBaseUrl();
 
         <!-- Page level plugins -->
         <script src="vendor/chart.js/Chart.min.js"></script>
+        <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
 
         <!-- Page level custom scripts -->
         <script src="js/demo/chart-area-demo.js"></script>
         <script src="js/demo/chart-pie-demo.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-
         <!-- context menu -->
 
         <script src="../client/js/context-menu-rename.js"></script>
+
+        <!-- fav menu -->
+        <script src="../client/js/toggleFav.js"></script>
 </body>
 
 </html>
