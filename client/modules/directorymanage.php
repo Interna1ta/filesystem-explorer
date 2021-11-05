@@ -1,4 +1,5 @@
 <?php
+
 require_once 'utils.php';
 
 function getDirs($folderName = "files")
@@ -30,21 +31,25 @@ function getDirs($folderName = "files")
 
 function createDirectory($newDirectoryName, $folderName = "files")
 {
-  $dir = './' . $folderName . '/' . $newDirectoryName;
+  $folderPath = getFolderPath($folderName);
+  $dir = $folderPath . '/' . $newDirectoryName;
+
+  echo $dir;
 
   if (!file_exists($dir)) {
-    mkdir($dir);
+    // Create and give permissions to the file.
+    mkdir($dir, 0777, true);
 
-    // Give permissions to the file.
-    chmod($dir, 0777);
+    echo 'yes dir';
   } else {
     echo 'directory already exists';
   }
+
+  header("Location: ../dashboard.php");
 }
 
 function openDirectory()
 {
-
   $userDirectory = "../client/files";
 
   $data =  scandir($userDirectory);
@@ -66,29 +71,28 @@ function deleteDirectory($old)
     } else {
       unlink("../files/$dir[0]/$dir[1]");
     }
-    header("Location: ../dashboard.php");
   } else {
     if (is_dir("../files/$old")) {
       rmdir("../files/$old");
     } else {
       unlink("../files/$old");
     }
-    header("Location: ../dashboard.php");
   }
+
+  header("Location: ../dashboard.php");
 }
 
-function renameDirectory($old, $new)
+function renameDirectory($oldName, $newName)
 {
+  if (strpos($oldName, '/') !== false) {
+    $dir = explode("/", $oldName);
 
-  if (strpos($old, '/') !== false) {
-    $dir = explode("/", $old);
-
-    rename("../files/$dir[0]/$dir[1]", "../files/$dir[0]/$new");
-    header("Location: ../dashboard.php");
+    rename("../files/$dir[0]/$dir[1]", "../files/$dir[0]/$newName");
   } else {
-    rename("../files/$old", "../files/$new");
-    header("Location: ../dashboard.php");
+    rename("../files/$oldName", "../files/$newName");
   }
+
+  header("Location: ../dashboard.php");
 }
 
 function getCreationDate($file)
