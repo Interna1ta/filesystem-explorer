@@ -29,16 +29,6 @@ function getFiles($folderName = "files")
     return $files;
 }
 
-
-function getFolderPath($folderName)
-{
-    if ($folderName !== 'files') {
-        return $folderPath = './files/' . $folderName;
-    } else {
-        return $folderPath = './files';
-    }
-}
-
 function getRootPath()
 {
     getcwd();
@@ -48,7 +38,6 @@ function getRootPath()
 
 function createFile($newFileName, $folderName = "files", $fileContent = "", $fileExtension = "txt")
 {
-
     try {
         $filename = './' . $folderName . '/' . $newFileName . '.' . $fileExtension;
 
@@ -70,7 +59,6 @@ function createFile($newFileName, $folderName = "files", $fileContent = "", $fil
 
 function openFile($newFileName, $folderName = "files", $fileExtension = "txt")
 {
-
     try {
         $fileName = "./" . $folderName . '/' . $newFileName . '.' . $fileExtension;
 

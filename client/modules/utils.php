@@ -66,3 +66,12 @@ function getBaseUrl()
     $protocol = stripos($_SERVER['SERVER_PROTOCOL'], 'https') === 0 ? 'https://' : 'http://';
     return $protocol . $_SERVER['HTTP_HOST'];
 }
+
+function getFolderPath($folderName)
+{
+    if ($folderName !== 'files') {
+        return $folderPath = './files/' . $folderName;
+    } else {
+        return $folderPath = './files';
+    }
+}

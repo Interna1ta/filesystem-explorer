@@ -8,12 +8,25 @@ if (!isset($_SESSION['name'])) {
     header('Location: ./index.php');
 }
 
+require_once("./modules/utils.php");
 require_once("./modules/filemanage.php");
 require_once("./modules/directorymanage.php");
-require_once("./modules/utils.php");
 
 $rootPath = getRootPath();
 $baseUrl = getBaseUrl();
+
+// $newDirectoryName = 'best-folder';
+// $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
+
+// echo $newDirectoryName;
+
+// echo '<br />';
+
+// echo $folderName;
+
+// echo '<br />';
+
+// createDirectory($newDirectoryName, $folderName);
 ?>
 
 <!DOCTYPE html>
@@ -49,35 +62,35 @@ $baseUrl = getBaseUrl();
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <!-- Sidebar - Brand -->
-            <div class="sidebar-brand d-flex justify-content-lg-center">
-                <a class="nav-link dropdown-toggle d-flex justify-content-lg-center" href=" #" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mx-4 text-white sidebar-brand-text just">
-                        <b>HI, <?php echo strtoupper($_SESSION['name']); ?></b>
+            <div class="sidebar-brand d-flex justify-content-lg-center p-2 border-bottom">
+                <a class="nav-link dropdown-toggle d-flex justify-content-lg-center align-items-center" href=" #" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="mx-2 text-white sidebar-brand-text just">
+                        <b><?php echo strtoupper($_SESSION['name']); ?></b>
                     </span>
-                    <div>
-                        <img class="img-thumbnail rounded-circle w-75" src="img/undraw_profile.svg">
-                    </div>
-                </a>
-                <!-- Dropdown - User Information -->
-                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Logout
-                    </a>
-                    <div class="sidebar-brand-text mx-3">
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right animated--grow-in" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
+                        <div class="sidebar-brand-text mx-3">
 
-                        <!-- Nav Item - User Information -->
-                        <div class="sidebar-brand-text dropdown no-arrow">
+                            <!-- Nav Item - User Information -->
+                            <div class="sidebar-brand-text dropdown no-arrow">
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="d-flex justify-content-end align-items-center mr-2">
+                        <img class="pl-auto img-thumbnail rounded-circle w-25" style="padding: 0.125rem !important;" src="img/undraw_profile.svg" />
+                    </div>
+                </a>
             </div>
 
             <!-- Nav Item - Dashboard -->
-            <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" class="nav-item active btn bg-white d-flex justify-content-center m-4 align-middle">
-                <label for='file' class='btn btn-white'>
-                    <i class="fa fa-plus align-middle fa-space-shuttle fa-rotate-270" aria-hidden="true"></i>
-                    Upload File
+            <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" class="nav-item active btn bg-white d-flex justify-content-center m-3 mr-auto align-middle" style="border-radius: 30px; padding: 0.5 rem 1rem;">
+                <label for='file' class="mb-0">
+                    <img class="mr-1" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/plus.svg" />
+                    New
                 </label>
                 <input class="d-none" type="file" name='file' id='file' onchange="form.submit()" />
             </form>
@@ -93,11 +106,17 @@ $baseUrl = getBaseUrl();
             $rootFiles = getPathContent($rootPath);
             echo (renderFolders($rootFiles));
             ?> -->
+
+            <button type="button" class="btn btn-secondary item" data-toggle="modal" data-target="#createDirModal">
+                <img class="mr-1" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/folder.svg" />
+                Folder
+            </button>
+            <hr>
+
             <?php
             $rootFiles = getPathContent($rootPath);
             echo (renderFavourites($rootFiles));
             ?>
-
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -128,7 +147,7 @@ $baseUrl = getBaseUrl();
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light border-bottom topbar static-top">
+                <nav class="navbar navbar-expand navbar-light border-bottom topbar static-top px-2">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -187,16 +206,15 @@ $baseUrl = getBaseUrl();
 
                     <?php
                     $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
-
                     $dirs = getDirs($folderName);
 
                     foreach ($dirs as $dir) {
                     ?>
-                        <button class="btn btn-light bg-white border-0 file__area w-100 p-0" type="button" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'">
+                        <button class="btn btn-light bg-white border-0 file__area w-100 p-0" type="button" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'">
                             <div class="row m-0 p-3 text-center border-bottom">
                                 <div class="col col-6 d-flex align-items-center">
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
-                                    <span class=""><?= $dir['name']; ?></span>
+                                    <span class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $dir['name']; ?></span>
                                 </div>
                                 <div class="col col-3 d-flex align-items-center">
                                     <span class=""><?= $dir['last-modified']; ?></span>
@@ -210,16 +228,15 @@ $baseUrl = getBaseUrl();
 
                     <?php
                     $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
-
                     $files = getFiles($folderName);
 
                     foreach ($files as $file) {
                     ?>
-                        <button class="btn btn-light bg-white border-0 file__area w-100 p-0" type="button" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" onclick="window.location.href='<?= $file['url']; ?>'">
+                        <button class="btn btn-light bg-white border-0 file__area w-100 p-0" type="button" onclick="window.location.href='<?= $file['url']; ?>'">
                             <div class="row m-0 p-3 text-center border-bottom">
                                 <div class="col col-6 d-flex align-items-center">
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
-                                    <span class=""><?= $file['name']; ?></span>
+                                    <span class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $file['name']; ?></span>
                                 </div>
                                 <div class="col col-3 d-flex align-items-center">
                                     <span><?= $file['last-modified']; ?></span>
@@ -246,12 +263,14 @@ $baseUrl = getBaseUrl();
 
         <!-- Logout Modal-->
         <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave,<b>
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            Ready to Leave,<b>
                                 <?php echo $_SESSION['name']; ?></b>
-                            ?</h5>
+                            ?
+                        </h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -265,20 +284,39 @@ $baseUrl = getBaseUrl();
             </div>
         </div>
 
-
-
-        <!-- Rename the Directory/File Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <form class="modal-content" action="../client/modules/rename.php" method="POST">
+        <!-- Create the Directory/File Modal -->
+        <div class="modal fade" id="createDirModal" tabindex="-1" role="dialog" aria-labelledby="createDirModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form class="modal-content" action="../client/modules/create.php" method="POST">
                     <div class="modal-header">
-                        <h5 class="modal-title"><input type="text" readonly class="form-control-plaintext" id="changeNameForm" name="oldDirName"></h5>
+                        <h5 class="modal-title">Create Folder</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h5>Change Name: </h5>
+                        <input name="createDirectory" placeholder="Insert New Name">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Rename the Directory/File Modal -->
+        <div class="modal fade" id="renameModal" tabindex="-1" role="dialog" aria-labelledby="renameModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form class="modal-content" action="../client/modules/rename.php" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Rename</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" readonly class="form-control-plaintext" id="changeNameForm" name="oldDirName">
                         <input name="newDirName" placeholder="Insert New Name">
                     </div>
                     <div class="modal-footer">
@@ -289,20 +327,18 @@ $baseUrl = getBaseUrl();
             </div>
         </div>
 
-
         <!-- Delete the Directory/File Modal -->
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <form class="modal-content" onsubmit="(e) => {e.preventDefault()}" action="../client/modules/delete.php" method="POST">
                     <div class="modal-header">
-                        <h5 class="modal-title"><input type="text" readonly class="form-control-plaintext" id="DeleteDirForm" name="delDirName"></h5>
+                        <h5 class="modal-title"><input type="text" readonly class="form-control-plaintext" id="deleteDirForm" name="delDirName"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <h5>Are you sure you want to delete this file?</h5>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -312,13 +348,12 @@ $baseUrl = getBaseUrl();
             </div>
         </div>
 
-
         <!-- Right Click Menu! -->
         <div id="context-menu" class="btn-group-mr-2">
             <button type="button" class="btn item">
                 Open
             </button>
-            <button type="button" class="btn item" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn item" data-toggle="modal" data-target="#renameModal">
                 Rename
             </button>
             <button type="button" class="btn item">

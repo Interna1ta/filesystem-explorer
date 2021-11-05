@@ -1,8 +1,7 @@
 //Context Menu
 
 const contextMenu = document.getElementById("context-menu");
-const scope = document.querySelectorAll(".file__area");
-
+var scope = document.querySelectorAll(".file__area");
 var oldName;
 
 scope.forEach((item) => {
@@ -17,9 +16,9 @@ scope.forEach((item) => {
     contextMenu.classList.add("visible");
 
     if (location.href.split("=")[1] === undefined) {
-      oldName = event.target.innerHTML;
+      oldName = event.target.querySelector(".selectedName").innerHTML;
     } else {
-      oldName = location.href.split("=")[1] + "/" + event.target.innerHTML;
+      oldName = location.href.split("=")[1] + "/" + event.target.querySelector(".selectedName").innerHTML;
     }
   });
 });
@@ -31,13 +30,10 @@ document.addEventListener("click", (e) => {
 });
 
 window.addEventListener("click", (e) => {
-  if (e.target.dataset.target === "#exampleModal") {
+  if (e.target.dataset.target === "#renameModal") {
     document.getElementById("changeNameForm").value = oldName;
-    console.log(oldName);
   }
   if (e.target.dataset.target === "#deleteModal") {
-    document.getElementById("DeleteDirForm").value = oldName;
-
-    console.log(oldName);
+    document.getElementById("deleteDirForm").value = oldName;
   }
 });
