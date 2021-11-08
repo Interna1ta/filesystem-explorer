@@ -334,7 +334,7 @@ $baseUrl = getBaseUrl();
             <button type="button" class="btn item" data-toggle="modal" data-target="#renameModal">
                 Rename
             </button>
-            <button type="button" class="btn item">
+            <button type="button" class="btn item" data-toggle="modal" data-target="#moveModal">
                 Move
             </button>
             <button type="button" class="btn item" data-toggle="modal" data-target="#deleteModal">
@@ -344,6 +344,46 @@ $baseUrl = getBaseUrl();
                 Properties
             </button>
         </div>
+
+        <!-- Move to the Directory/File Modal -->
+        <div class="modal fade" id="moveModal" tabindex="-1" role="dialog" aria-labelledby="moveModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form class="modal-content" action="../client/modules/move.php" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Move File</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input class="d-none" id="moveModalInput" name="oldDirName">
+                        <input class="d-none" name="moveDirName" id="moveDirName">
+
+                        <?php
+                        $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
+                        $dirs = getDirs($folderName);
+
+                        foreach ($dirs as $dir) {
+                        ?>
+                            <button class="btn btn-light bg-white border-0 w-100 p-0" data-move="move" type="button">
+                                <div class="row m-0 p-3 text-center border-bottom" data-move="move">
+                                    <div class="col col-6 d-flex align-items-center " data-move="move">
+                                        <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
+                                        <span data-move="move" class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $dir['name']; ?></span>
+                                    </div>
+
+                                </div>
+                            </button>
+                        <?php } ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Move</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
 
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
