@@ -39,14 +39,11 @@ function createDirectory($newDirectoryName, $folderName = "files")
   if (!file_exists($dir)) {
     // Create and give permissions to the file.
     mkdir($dir, 0777, true);
-    chmod($dir, 0777);
-
-    echo 'yes dir';
   } else {
     echo 'directory already exists';
   }
 
-  // header("Location: ../dashboard.php");
+  header("Location: ../dashboard.php");
 }
 
 function openDirectory()

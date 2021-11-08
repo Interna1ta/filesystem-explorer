@@ -3,7 +3,6 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 session_start();
 
-
 if (!isset($_SESSION['name'])) {
     header('Location: ./index.php');
 }
@@ -14,19 +13,6 @@ require_once("./modules/directorymanage.php");
 
 $rootPath = getRootPath();
 $baseUrl = getBaseUrl();
-
-// $newDirectoryName = 'best-folder';
-// $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
-
-// echo $newDirectoryName;
-
-// echo '<br />';
-
-// echo $folderName;
-
-// echo '<br />';
-
-// createDirectory($newDirectoryName, $folderName);
 ?>
 
 <!DOCTYPE html>
@@ -92,7 +78,7 @@ $baseUrl = getBaseUrl();
 
             <!-- Nav Item - Dashboard -->
             <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" class="nav-item active btn bg-white d-flex justify-content-center m-3 mr-auto align-middle" style="border-radius: 30px; padding: 0.5 rem 1rem;">
-                <label for='file' class="mb-0">
+                <label for='file' class="mb-0" style="cursor: pointer;">
                     <img class="mr-1" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/plus.svg" />
                     New
                 </label>
@@ -103,18 +89,6 @@ $baseUrl = getBaseUrl();
                 <img class="mr-1" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/folder.svg" />
                 Folder
             </button>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <img class="mr-1" height="16" width="16" src="./node_modules/@icon/simple-line-icons/icons/folder.svg" />
-                    <span>Bin</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                    </div>
-                </div>
-            </li>
 
         </ul>
         <!-- End of Sidebar -->
