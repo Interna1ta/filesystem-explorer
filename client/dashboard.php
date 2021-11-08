@@ -91,13 +91,33 @@ $baseUrl = getBaseUrl();
             </div>
 
             <!-- Nav Item - Dashboard -->
-            <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" class="nav-item active btn bg-white d-flex justify-content-center m-3 mr-auto align-middle" style="border-radius: 30px; padding: 0.5 rem 1rem;">
-                <label for='file' class="mb-0">
-                    <img class="mr-1" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/plus.svg" />
-                    New
-                </label>
-                <input class="d-none" type="file" name='file' id='file' onchange="form.submit()" multiple />
-            </form>
+            <div>
+                <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" onsubmit="openModal()" id="myForm" class="form-inline nav-item active btn bg-light text-gray-900 d-flex justify-content-center p-0 m-3 mt-3 align-middle" style="border-radius: 10px;">
+                    <label for='file' class="d-flex align-items-center justify-content-center">
+                        <img class="mr-2" height="25" width="25" src="./node_modules/@icon/simple-line-icons/icons/plus.svg" />
+                        Upload file
+                    </label>
+                    <input type="hidden" name="MAX_FILE_SIZE" value="10485760" /><br />
+                    <input type="file" class="d-none" name="file_upload" id='file' onchange="form.submit()" /><br />
+                </form>
+                <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Modal title</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>One fine body&hellip;</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            </div>
 
             <button type="button" class="btn btn-secondary item" data-toggle="modal" data-target="#createDirModal">
                 <img class="mr-1" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/folder.svg" />
@@ -261,7 +281,6 @@ $baseUrl = getBaseUrl();
                 </div>
             </div>
         </div>
-
         <!-- Create the Directory/File Modal -->
         <div class="modal fade" id="createDirModal" tabindex="-1" role="dialog" aria-labelledby="createDirModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -283,6 +302,7 @@ $baseUrl = getBaseUrl();
             </div>
         </div>
 
+
         <!-- Rename the Directory/File Modal -->
         <div class="modal fade" id="renameModal" tabindex="-1" role="dialog" aria-labelledby="renameModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -300,6 +320,7 @@ $baseUrl = getBaseUrl();
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
+                        
                     </div>
                 </form>
             </div>
@@ -359,6 +380,7 @@ $baseUrl = getBaseUrl();
         <script src="vendor/chart.js/Chart.min.js"></script>
 
         <!-- Page level custom scripts -->
+        <script src="js/upload-file.js"></script>
         <script src="js/demo/chart-area-demo.js"></script>
         <script src="js/demo/chart-pie-demo.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -367,6 +389,7 @@ $baseUrl = getBaseUrl();
         <!-- context menu -->
 
         <script src="../client/js/context-menu-rename.js"></script>
+        <script src="../"></script>
 </body>
 
 </html>
