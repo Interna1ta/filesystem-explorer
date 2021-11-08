@@ -16,16 +16,15 @@ scope.forEach((item) => {
     contextMenu.classList.add("visible");
 
     if (location.href.split("=")[1] === undefined) {
-      oldName = event.target.querySelector(".selectedName")
-        ? event.target.querySelector(".selectedName").innerHTML
-        : event.target.innerHTML;
+      oldName = event.target
+        .closest(".file__area")
+        .querySelector(".selectedName").innerHTML;
     } else {
       oldName =
         location.href.split("=")[1] +
         "/" +
-        (event.target.querySelector(".selectedName")
-          ? event.target.querySelector(".selectedName").innerHTML
-          : event.target.innerHTML);
+        event.target.closest(".file__area").querySelector(".selectedName")
+          .innerHTML;
     }
   });
 });
