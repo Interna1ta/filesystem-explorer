@@ -11,13 +11,13 @@ function getDirs($folderName = "files")
   $i = 0;
 
   foreach ($filesAndDirs as $file) {
-    $filePath = $folderPath . '/' . $file;
+    $filePath = './' . $folderPath . '/' . $file;
     $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
 
     if (is_dir($filePath)) {
       $dirs[$i]['type'] = $fileType;
       $dirs[$i]['icon'] = getIcon($fileType);
-      $dirs[$i]['url'] = $filePath;
+      $dirs[$i]['url'] = $folderName;
       $dirs[$i]['name'] = $file;
       $dirs[$i]['file-size'] = formatSizeUnits(filesize($filePath));
       $dirs[$i]['last-modified'] = date("M d, Y", filemtime($filePath));
@@ -32,13 +32,13 @@ function getDirs($folderName = "files")
 function createDirectory($newDirectoryName, $folderName = "files")
 {
   $folderPath = getFolderPath($folderName);
-  $dir = "." . $folderPath . '/' . $newDirectoryName;
-
-  echo $folderPath;
+  $dir = '../' . $folderPath . '/' . $newDirectoryName;
 
   if (!file_exists($dir)) {
     // Create and give permissions to the file.
     mkdir($dir, 0777, true);
+    chmod($dir, 0777);
+
   } else {
     echo 'directory already exists';
   }
@@ -118,7 +118,6 @@ function getSize($file)
   }
 }
 
-
 function moveFiles($oldName, $newName)
 {
   if (strpos($oldName, '/') !== false) {
@@ -130,8 +129,6 @@ function moveFiles($oldName, $newName)
   } else {
     rename("../files/$oldName", "../files/$newName/$oldName");
   }
-
-
 
   header('Location: ' . $_SERVER['HTTP_REFERER']);
 }

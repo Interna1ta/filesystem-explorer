@@ -11,13 +11,13 @@ function getFiles($folderName = "files")
     $i = 0;
 
     foreach ($filesAndDirs as $file) {
-        $filePath = $folderPath . '/' . $file;
+        $filePath = './' . $folderPath . '/' . $file;
         $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
 
         if (is_file($filePath)) {
             $files[$i]['type'] = $fileType;
             $files[$i]['icon'] = getIcon($fileType);
-            $files[$i]['url'] = $filePath;
+            $files[$i]['url'] = $folderName;
             $files[$i]['name'] = $file;
             $files[$i]['file-size'] = formatSizeUnits(filesize($filePath));
             $files[$i]['last-modified'] = date("M d, Y", filemtime($filePath));
