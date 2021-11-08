@@ -92,7 +92,9 @@ function renameDirectory($oldName, $newName)
     rename("../files/$oldName", "../files/$newName");
   }
 
-  header('Location: ' . $_SERVER['HTTP_REFERER']);
+
+
+  //header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 function getCreationDate($file)

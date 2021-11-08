@@ -215,8 +215,9 @@ $baseUrl = getBaseUrl();
 
                     foreach ($dirs as $dir) {
                     ?>
-                        <button class="btn btn-light bg-white border-0 w-100 p-0  file__area" type="button" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'">
+                        <button class="btn btn-light bg-white border-0 w-100 p-0  file__area" type="button" onclick="window.location.href='./dashboard.php?dir=<?= isset($_GET['dir']) ? $_GET['dir'] . '/' .  $dir['name'] :  $dir['name']; ?>'">
                             <div class="row m-0 p-3 text-center border-bottom">
+
                                 <div class="col col-6 d-flex align-items-center ">
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
                                     <span class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $dir['name']; ?></span>
@@ -235,11 +236,14 @@ $baseUrl = getBaseUrl();
                     $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
                     $files = getFiles($folderName);
 
+
                     foreach ($files as $file) {
                     ?>
+
                         <button class="btn btn-light bg-white border-0 w-100 p-0 file__area" type="button" onclick="window.location.href='<?= $file['url']; ?>'">
                             <div class="row m-0 p-3 text-center border-bottom">
                                 <div class="col col-6 d-flex align-items-center ">
+
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
                                     <span class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $file['name']; ?></span>
                                 </div>
@@ -310,6 +314,8 @@ $baseUrl = getBaseUrl();
             </div>
         </div>
 
+
+
         <!-- Rename the Directory/File Modal -->
         <div class="modal fade" id="renameModal" tabindex="-1" role="dialog" aria-labelledby="renameModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -321,8 +327,7 @@ $baseUrl = getBaseUrl();
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input type="text" readonly class="form-control-plaintext" id="changeNameForm" name="oldDirName">
-                        <input name="newDirName" placeholder="Insert New Name">
+                        <input type="text" readonly class="form-control-plaintext" id="changeNameForm"> <input name="newDirName" placeholder="Insert New Name">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
