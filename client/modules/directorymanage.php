@@ -6,6 +6,7 @@ function getDirs($folderName = "files")
 {
   $folderPath = getFolderPath($folderName);
   $filesAndDirs = array_diff(scandir($folderPath), array('.', '..', '.DS_Store'));
+  // $urlPath = $folderName;
 
   $dirs = array();
   $i = 0;

@@ -162,7 +162,7 @@ $baseUrl = getBaseUrl();
 
                     foreach ($dirs as $dir) {
                     ?>
-                        <button class="btn btn-light bg-white border-0 w-100 p-0 file__area" type="button" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'">
+                        <button class="btn btn-light bg-white border-0 w-100 p-0 file__area" type="button" onclick="window.location.href='./dashboard.php?dir=<?= isset($_GET['dir']) ? $_GET['dir'] . '/' .  $dir['name'] :  $dir['name']; ?>'">
                             <div class="row m-0 p-3 text-center border-bottom">
                                 <div class="col col-6 d-flex align-items-center ">
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
@@ -184,7 +184,7 @@ $baseUrl = getBaseUrl();
 
                     foreach ($files as $file) {
                     ?>
-                        <button class="btn btn-light bg-white border-0 w-100 p-0 file__area" type="button" onclick="window.location.href='<?= $file['name']; ?>'">
+                        <button class="btn btn-light bg-white border-0 w-100 p-0 file__area" type="button" onclick="window.location.href='files/<?= isset($_GET['dir']) ? $_GET['dir'] . '/' .  $file['name'] :  $file['name']; ?>'">
                             <div class="row m-0 p-3 text-center border-bottom">
                                 <div class="col col-6 d-flex align-items-center ">
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
