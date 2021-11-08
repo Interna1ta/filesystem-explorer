@@ -3,14 +3,18 @@
 const contextMenu = document.getElementById("context-menu");
 var scope = document.querySelectorAll(".file__area");
 var oldName;
-
 var moveDir;
+var fileName;
 
 scope.forEach((item) => {
   item.addEventListener("contextmenu", (event) => {
     event.preventDefault();
 
     item.classList.add("item-active");
+
+    fileName = event.target
+      .closest(".file__area")
+      .querySelector(".selectedName").innerHTML;
 
     const { clientX: mouseX, clientY: mouseY } = event;
 
@@ -20,15 +24,9 @@ scope.forEach((item) => {
     contextMenu.classList.add("visible");
 
     if (location.href.split("=")[1] === undefined) {
-      oldName = event.target
-        .closest(".file__area")
-        .querySelector(".selectedName").innerHTML;
+      oldName = fileName;
     } else {
-      oldName =
-        location.href.split("=")[1] +
-        "/" +
-        event.target.closest(".file__area").querySelector(".selectedName")
-          .innerHTML;
+      oldName = location.href.split("=")[1] + "/" + fileName;
     }
   });
 });
@@ -37,7 +35,6 @@ document.addEventListener("click", (e) => {
   if (e.target.dataset.target === "#renameModal") {
     document.getElementById("changeNameForm").value = oldName;
   }
-
   if (e.target.dataset.move === "move") {
     moveDir = e.target.querySelector(".selectedName")
       ? e.target.querySelector(".selectedName").innerHTML

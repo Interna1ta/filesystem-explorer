@@ -85,15 +85,12 @@ function deleteDirectory($old)
 
 function renameDirectory($oldName, $newName)
 {
-  if (strpos($oldName, '/') !== false) {
-    $dir = explode("/", $oldName);
 
-    rename("../files/$dir[0]/$dir[1]", "../files/$dir[0]/$newName");
-  } else {
-    rename("../files/$oldName", "../files/$newName");
-  }
+  rename("../files/$oldName", "../files/$oldName/$newName");
 
-  header('Location: ' . $_SERVER['HTTP_REFERER']);
+  echo $newName;
+  echo $oldName;
+  //header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 function getCreationDate($file)
