@@ -34,11 +34,7 @@ function createDirectory($newDirectoryName, $folderName = "files")
   $folderPath = getFolderPath($folderName);
   $dir = $folderPath . '/' . $newDirectoryName;
 
-  echo $newDirectoryName;
-  echo '<br />';
-  echo $folderName;
-  echo '<br />';
-  echo $dir;
+  echo $folderPath;
 
   if (!file_exists($dir)) {
     // Create and give permissions to the file.
