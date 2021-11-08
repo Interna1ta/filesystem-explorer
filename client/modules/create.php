@@ -1,24 +1,10 @@
-
 <?php
-error_reporting(E_ALL ^ E_NOTICE);
+
+require_once("./directorymanage.php");
+
 session_start();
 
-if ($currentPath == NULL) {
-    $actualPath = getcwd();
-    chdir($rootPath);
-    $actualPath = getcwd();
-    echo $actualPath . "\\" . $newFolder;
+$newDirectoryName = $_POST["createDirectory"];
+$folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
 
-    if (!is_dir($newFolder)) {
-        mkdir($actualPath . "\\" . $newFolder, 0777);
-    }
-} else {
-    chdir($currentPath);
-    $actualPath = getcwd();
-    echo $actualPath;
-    if (!is_dir($newFolder)) {
-        mkdir($actualPath . "\\" . $newFolder, 0777);
-    }
-}
-header('Location: ../dasboard.php');
-?>
+createDirectory($newDirectoryName, $folderName);
