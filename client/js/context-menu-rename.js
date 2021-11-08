@@ -4,6 +4,8 @@ const contextMenu = document.getElementById("context-menu");
 var scope = document.querySelectorAll(".file__area");
 var oldName;
 
+var moveDir;
+
 scope.forEach((item) => {
   item.addEventListener("contextmenu", (event) => {
     event.preventDefault();
@@ -33,9 +35,17 @@ document.addEventListener("click", (e) => {
   if (e.target.dataset.target === "#renameModal") {
     document.getElementById("changeNameForm").value = oldName;
   }
+
+  if (e.target.dataset.move === "move") {
+    moveDir = e.target.querySelector(".selectedName")
+      ? e.target.querySelector(".selectedName").innerHTML
+      : e.target.closest(".selectedName").innerHTML;
+
+    document.getElementById("moveDirName").value = moveDir;
+    document.getElementById("moveModalInput").value = oldName;
+  }
   if (e.target.dataset.target === "#deleteModal") {
     document.getElementById("deleteDirForm").value = oldName;
   }
-
   contextMenu.classList.remove("visible");
 });

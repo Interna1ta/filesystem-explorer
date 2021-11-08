@@ -32,7 +32,7 @@ function getDirs($folderName = "files")
 function createDirectory($newDirectoryName, $folderName = "files")
 {
   $folderPath = getFolderPath($folderName);
-  $dir = $folderPath . '/' . $newDirectoryName;
+  $dir = "." . $folderPath . '/' . $newDirectoryName;
 
   echo $dir;
 
@@ -118,4 +118,22 @@ function getSize($file)
       return "File too big";
     }
   }
+}
+
+
+function moveFiles($oldName, $newName)
+{
+  if (strpos($oldName, '/') !== false) {
+    $dir = explode("/", $oldName);
+
+    rename("../files/$dir[0]/$dir[1]", "../files/$dir[0]/$newName");
+
+    echo $dir;
+  } else {
+    rename("../files/$oldName", "../files/$newName/$oldName");
+  }
+
+
+
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
