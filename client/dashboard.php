@@ -91,7 +91,7 @@ $baseUrl = getBaseUrl();
             </div>
 
             <!-- Nav Item - Dashboard -->
-            <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" onformchange="openModal()" id="myForm" class="form-inline nav-item active btn bg-light text-gray-900 d-flex justify-content-center p-0 m-3 mt-3 align-middle" style="border-radius: 10px;">
+            <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" onsubmit="openModal()" id="myForm" class="form-inline nav-item active btn bg-light text-gray-900 d-flex justify-content-center p-0 m-3 mt-3 align-middle" style="border-radius: 10px;">
                 <label for='file' class="d-flex align-items-center justify-content-center">
                     <img class="mr-2" height="25" width="25" src="./node_modules/@icon/simple-line-icons/icons/plus.svg" />
                     Upload file

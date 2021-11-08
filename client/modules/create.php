@@ -2,9 +2,6 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
-$rootPath = '../files';
-$currentPath = $_SESSION['path'];
-$newFolder = $_POST['createFolderInput'];
 
 if ($currentPath == NULL) {
     $actualPath = getcwd();
