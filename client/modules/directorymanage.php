@@ -34,18 +34,19 @@ function createDirectory($newDirectoryName, $folderName = "files")
   $folderPath = getFolderPath($folderName);
   $dir = "." . $folderPath . '/' . $newDirectoryName;
 
-  echo $dir;
+  echo $folderPath;
 
   if (!file_exists($dir)) {
     // Create and give permissions to the file.
     mkdir($dir, 0777, true);
+    chmod($dir, 0777);
 
     echo 'yes dir';
   } else {
     echo 'directory already exists';
   }
 
-  header("Location: ../dashboard.php");
+  // header("Location: ../dashboard.php");
 }
 
 function openDirectory()
@@ -63,38 +64,27 @@ function uploadDirectory($urlDirectory)
 
 function deleteDirectory($old)
 {
-  if (strpos($old, '/') !== false) {
-    $dir = explode("/", $old);
 
-    if (is_dir("../files/$dir[0]/$dir[1]")) {
-      rmdir("../files/$dir[0]/$dir[1]");
-    } else {
-      unlink("../files/$dir[0]/$dir[1]");
-    }
+
+  if (is_dir("../files/$old")) {
+    rmdir("../files/$old");
   } else {
-    if (is_dir("../files/$old")) {
-      rmdir("../files/$old");
-    } else {
-      unlink("../files/$old");
-    }
+    unlink("../files/$old");
   }
+
+
 
   header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
-function renameDirectory($oldName, $newName)
+function renameDirectory($oldName, $newName, $route)
 {
-  if (strpos($oldName, '/') !== false) {
-    $dir = explode("/", $oldName);
 
-    rename("../files/$dir[0]/$dir[1]", "../files/$dir[0]/$newName");
-  } else {
-    rename("../files/$oldName", "../files/$newName");
-  }
+  rename("../files/$oldName", "../files/$route/$newName");
 
 
 
-  //header('Location: ' . $_SERVER['HTTP_REFERER']);
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 function getCreationDate($file)
