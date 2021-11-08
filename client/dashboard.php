@@ -3,7 +3,6 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 session_start();
 
-
 if (!isset($_SESSION['name'])) {
     header('Location: ./index.php');
 }
@@ -14,19 +13,6 @@ require_once("./modules/directorymanage.php");
 
 $rootPath = getRootPath();
 $baseUrl = getBaseUrl();
-
-// $newDirectoryName = 'best-folder';
-// $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
-
-// echo $newDirectoryName;
-
-// echo '<br />';
-
-// echo $folderName;
-
-// echo '<br />';
-
-// createDirectory($newDirectoryName, $folderName);
 ?>
 
 <!DOCTYPE html>
@@ -122,18 +108,6 @@ $baseUrl = getBaseUrl();
                 Folder
             </button>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <img class="mr-1" height="16" width="16" src="./node_modules/@icon/simple-line-icons/icons/folder.svg" />
-                    <span>Bin</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                    </div>
-                </div>
-            </li>
-
         </ul>
         <!-- End of Sidebar -->
 
@@ -206,7 +180,7 @@ $baseUrl = getBaseUrl();
 
                     foreach ($dirs as $dir) {
                     ?>
-                        <button class="btn btn-light bg-white border-0 w-100 p-0 file__area" type="button" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'">
+                        <button class="btn btn-light bg-white border-0 w-100 p-0 file__area" type="button" onclick="window.location.href='./dashboard.php?dir=<?= isset($_GET['dir']) ? $_GET['dir'] . '/' .  $dir['name'] :  $dir['name']; ?>'">
                             <div class="row m-0 p-3 text-center border-bottom">
                                 <div class="col col-6 d-flex align-items-center ">
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
@@ -228,7 +202,7 @@ $baseUrl = getBaseUrl();
 
                     foreach ($files as $file) {
                     ?>
-                        <button class="btn btn-light bg-white border-0 w-100 p-0 file__area" type="button" onclick="window.location.href='<?= $file['url']; ?>'">
+                        <button class="btn btn-light bg-white border-0 w-100 p-0 file__area" type="button" onclick="window.location.href='files/<?= isset($_GET['dir']) ? $_GET['dir'] . '/' .  $file['name'] :  $file['name']; ?>'">
                             <div class="row m-0 p-3 text-center border-bottom">
                                 <div class="col col-6 d-flex align-items-center ">
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
