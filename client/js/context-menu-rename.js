@@ -5,8 +5,11 @@ var scope = document.querySelectorAll(".file__area");
 var oldName;
 
 scope.forEach((item) => {
+
   item.addEventListener("contextmenu", (event) => {
     event.preventDefault();
+
+    item.classList.add("item-active");
 
     const { clientX: mouseX, clientY: mouseY } = event;
 
@@ -30,9 +33,8 @@ scope.forEach((item) => {
 });
 
 document.addEventListener("click", (e) => {
-  if (e.target.offsetParent != contextMenu) {
-    contextMenu.classList.remove("visible");
-  }
+  contextMenu.classList.remove("visible");
+
   if (e.target.dataset.target === "#renameModal") {
     document.getElementById("changeNameForm").value = oldName;
   }

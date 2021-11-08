@@ -65,7 +65,7 @@ $baseUrl = getBaseUrl();
             <div class="sidebar-brand d-flex justify-content-lg-center p-2 border-bottom">
                 <a class="nav-link dropdown-toggle d-flex justify-content-lg-center align-items-center" href=" #" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="mx-2 text-white sidebar-brand-text just">
-                        <b><?php echo strtoupper($_SESSION['name']); ?></b>
+                        <b><?= strtoupper($_SESSION['name']); ?></b>
                     </span>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right animated--grow-in" aria-labelledby="userDropdown">
@@ -77,7 +77,6 @@ $baseUrl = getBaseUrl();
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Home
                         </a>
-
                         <div class="sidebar-brand-text mx-3">
 
                             <!-- Nav Item - User Information -->
@@ -100,40 +99,15 @@ $baseUrl = getBaseUrl();
                 <input class="d-none" type="file" name='file' id='file' onchange="form.submit()" multiple />
             </form>
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                <i class="fa fa-star-o pull-left" aria-hidden="true"></i>
-                Favorite
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <!-- ?php
-            $rootFiles = getPathContent($rootPath);
-            echo (renderFolders($rootFiles));
-            ?> -->
-
             <button type="button" class="btn btn-secondary item" data-toggle="modal" data-target="#createDirModal">
                 <img class="mr-1" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/folder.svg" />
                 Folder
             </button>
-            <hr>
-
-            <?php
-            $rootFiles = getPathContent($rootPath);
-            echo (renderFavourites($rootFiles));
-            ?>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Others
-            </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
+                    <img class="mr-1" height="16" width="16" src="./node_modules/@icon/simple-line-icons/icons/folder.svg" />
                     <span>Bin</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -202,7 +176,6 @@ $baseUrl = getBaseUrl();
                 <div class="container-fluid p-0">
 
                     <!-- Content Row -->
-
                     <div class="row text-gray-900 pt-4 pb-2 px-3 m-0 text-center border-bottom">
                         <div class="col col-6 d-flex">Name</div>
                         <div class="col col-3 d-flex">Last modified</div>
@@ -215,7 +188,7 @@ $baseUrl = getBaseUrl();
 
                     foreach ($dirs as $dir) {
                     ?>
-                        <button class="btn btn-light bg-white border-0 w-100 p-0  file__area" type="button" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'">
+                        <button class="btn btn-light bg-white border-0 w-100 p-0 file__area" type="button" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'">
                             <div class="row m-0 p-3 text-center border-bottom">
                                 <div class="col col-6 d-flex align-items-center ">
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />

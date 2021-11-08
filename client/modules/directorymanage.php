@@ -34,18 +34,23 @@ function createDirectory($newDirectoryName, $folderName = "files")
   $folderPath = getFolderPath($folderName);
   $dir = $folderPath . '/' . $newDirectoryName;
 
+  echo $newDirectoryName;
+  echo '<br />';
+  echo $folderName;
+  echo '<br />';
   echo $dir;
 
   if (!file_exists($dir)) {
     // Create and give permissions to the file.
     mkdir($dir, 0777, true);
+    chmod($dir, 0777);
 
     echo 'yes dir';
   } else {
     echo 'directory already exists';
   }
 
-  header("Location: ../dashboard.php");
+  // header("Location: ../dashboard.php");
 }
 
 function openDirectory()
