@@ -372,6 +372,29 @@ $baseUrl = getBaseUrl();
             </button>
         </div>
 
+        <!-- Move to the Directory/File Modal -->
+        <div class="modal fade" id="moveModal" tabindex="-1" role="dialog" aria-labelledby="moveModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form class="modal-content" action="../client/modules/rename.php" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Move File</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" readonly class="form-control-plaintext" id="moveModal" name="oldDirName">
+                        <input name="newDirName" placeholder="Insert New Name">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
