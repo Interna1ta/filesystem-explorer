@@ -70,8 +70,8 @@ function getBaseUrl()
 function getFolderPath($folderName)
 {
     if ($folderName !== 'files') {
-        return $folderPath = './files/' . $folderName;
+        return $folderPath = 'files/' . $folderName;
     } else {
-        return $folderPath = './files';
+        return $folderPath = 'files';
     }
 }

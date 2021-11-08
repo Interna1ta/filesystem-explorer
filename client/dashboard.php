@@ -3,7 +3,6 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 session_start();
 
-
 if (!isset($_SESSION['name'])) {
     header('Location: ./index.php');
 }
@@ -14,19 +13,6 @@ require_once("./modules/directorymanage.php");
 
 $rootPath = getRootPath();
 $baseUrl = getBaseUrl();
-
-// $newDirectoryName = 'best-folder';
-// $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
-
-// echo $newDirectoryName;
-
-// echo '<br />';
-
-// echo $folderName;
-
-// echo '<br />';
-
-// createDirectory($newDirectoryName, $folderName);
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +51,7 @@ $baseUrl = getBaseUrl();
             <div class="sidebar-brand d-flex justify-content-lg-center p-2 border-bottom">
                 <a class="nav-link dropdown-toggle d-flex justify-content-lg-center align-items-center" href=" #" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="mx-2 text-white sidebar-brand-text just">
-                        <b><?php echo strtoupper($_SESSION['name']); ?></b>
+                        <b><?= strtoupper($_SESSION['name']); ?></b>
                     </span>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right animated--grow-in" aria-labelledby="userDropdown">
@@ -77,7 +63,6 @@ $baseUrl = getBaseUrl();
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Home
                         </a>
-
                         <div class="sidebar-brand-text mx-3">
 
                             <!-- Nav Item - User Information -->
@@ -93,54 +78,17 @@ $baseUrl = getBaseUrl();
 
             <!-- Nav Item - Dashboard -->
             <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" class="nav-item active btn bg-white d-flex justify-content-center m-3 mr-auto align-middle" style="border-radius: 30px; padding: 0.5 rem 1rem;">
-                <label for='file' class="mb-0">
+                <label for='file' class="mb-0" style="cursor: pointer;">
                     <img class="mr-1" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/plus.svg" />
                     New
                 </label>
                 <input class="d-none" type="file" name='file' id='file' onchange="form.submit()" multiple />
             </form>
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                <i class="fa fa-star-o pull-left" aria-hidden="true"></i>
-                Favorite
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <!-- ?php
-            $rootFiles = getPathContent($rootPath);
-            echo (renderFolders($rootFiles));
-            ?> -->
-
             <button type="button" class="btn btn-secondary item" data-toggle="modal" data-target="#createDirModal">
                 <img class="mr-1" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/folder.svg" />
                 Folder
             </button>
-            <hr>
-
-            <?php
-            $rootFiles = getPathContent($rootPath);
-            echo (renderFavourites($rootFiles));
-            ?>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Others
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Bin</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                    </div>
-                </div>
-            </li>
 
         </ul>
         <!-- End of Sidebar -->
@@ -202,7 +150,6 @@ $baseUrl = getBaseUrl();
                 <div class="container-fluid p-0">
 
                     <!-- Content Row -->
-
                     <div class="row text-gray-900 pt-4 pb-2 px-3 m-0 text-center border-bottom">
                         <div class="col col-6 d-flex">Name</div>
                         <div class="col col-3 d-flex">Last modified</div>
@@ -215,7 +162,7 @@ $baseUrl = getBaseUrl();
 
                     foreach ($dirs as $dir) {
                     ?>
-                        <button class="btn btn-light bg-white border-0 w-100 p-0  file__area" type="button" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'">
+                        <button class="btn btn-light bg-white border-0 w-100 p-0 file__area" type="button" onclick="window.location.href='./dashboard.php?dir=<?= isset($_GET['dir']) ? $_GET['dir'] . '/' .  $dir['name'] :  $dir['name']; ?>'">
                             <div class="row m-0 p-3 text-center border-bottom">
                                 <div class="col col-6 d-flex align-items-center ">
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
@@ -237,7 +184,7 @@ $baseUrl = getBaseUrl();
 
                     foreach ($files as $file) {
                     ?>
-                        <button class="btn btn-light bg-white border-0 w-100 p-0 file__area" type="button" onclick="window.location.href='<?= $file['url']; ?>'">
+                        <button class="btn btn-light bg-white border-0 w-100 p-0 file__area" type="button" onclick="window.location.href='files/<?= isset($_GET['dir']) ? $_GET['dir'] . '/' .  $file['name'] :  $file['name']; ?>'">
                             <div class="row m-0 p-3 text-center border-bottom">
                                 <div class="col col-6 d-flex align-items-center ">
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
@@ -361,7 +308,7 @@ $baseUrl = getBaseUrl();
             <button type="button" class="btn item" data-toggle="modal" data-target="#renameModal">
                 Rename
             </button>
-            <button type="button" class="btn item">
+            <button type="button" class="btn item" data-toggle="modal" data-target="#moveModal">
                 Move
             </button>
             <button type="button" class="btn item" data-toggle="modal" data-target="#deleteModal">
@@ -371,6 +318,46 @@ $baseUrl = getBaseUrl();
                 Properties
             </button>
         </div>
+
+        <!-- Move to the Directory/File Modal -->
+        <div class="modal fade" id="moveModal" tabindex="-1" role="dialog" aria-labelledby="moveModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form class="modal-content" action="../client/modules/move.php" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Move File</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input class="d-none" id="moveModalInput" name="oldDirName">
+                        <input class="d-none" name="moveDirName" id="moveDirName">
+
+                        <?php
+                        $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
+                        $dirs = getDirs($folderName);
+
+                        foreach ($dirs as $dir) {
+                        ?>
+                            <button class="btn btn-light bg-white border-0 w-100 p-0" data-move="move" type="button">
+                                <div class="row m-0 p-3 text-center border-bottom" data-move="move">
+                                    <div class="col col-6 d-flex align-items-center " data-move="move">
+                                        <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
+                                        <span data-move="move" class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $dir['name']; ?></span>
+                                    </div>
+
+                                </div>
+                            </button>
+                        <?php } ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Move</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
 
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
