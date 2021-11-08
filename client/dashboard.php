@@ -73,6 +73,11 @@ $baseUrl = getBaseUrl();
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Logout
                         </a>
+                        <a class="dropdown-item" href="./dashboard.php">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Home
+                        </a>
+
                         <div class="sidebar-brand-text mx-3">
 
                             <!-- Nav Item - User Information -->
@@ -92,7 +97,7 @@ $baseUrl = getBaseUrl();
                     <img class="mr-1" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/plus.svg" />
                     New
                 </label>
-                <input class="d-none" type="file" name='file' id='file' onchange="form.submit()" />
+                <input class="d-none" type="file" name='file' id='file' onchange="form.submit()" multiple />
             </form>
 
             <!-- Heading -->
@@ -210,9 +215,9 @@ $baseUrl = getBaseUrl();
 
                     foreach ($dirs as $dir) {
                     ?>
-                        <button class="btn btn-light bg-white border-0 file__area w-100 p-0" type="button" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'">
+                        <button class="btn btn-light bg-white border-0 w-100 p-0" type="button" onclick="window.location.href='./dashboard.php?dir=<?= $dir['name']; ?>'">
                             <div class="row m-0 p-3 text-center border-bottom">
-                                <div class="col col-6 d-flex align-items-center">
+                                <div class="col col-6 d-flex align-items-center  file__area">
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
                                     <span class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $dir['name']; ?></span>
                                 </div>
@@ -232,9 +237,9 @@ $baseUrl = getBaseUrl();
 
                     foreach ($files as $file) {
                     ?>
-                        <button class="btn btn-light bg-white border-0 file__area w-100 p-0" type="button" onclick="window.location.href='<?= $file['url']; ?>'">
+                        <button class="btn btn-light bg-white border-0 w-100 p-0" type="button" onclick="window.location.href='<?= $file['url']; ?>'">
                             <div class="row m-0 p-3 text-center border-bottom">
-                                <div class="col col-6 d-flex align-items-center">
+                                <div class="col col-6 d-flex align-items-center file__area">
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
                                     <span class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $file['name']; ?></span>
                                 </div>

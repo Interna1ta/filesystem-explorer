@@ -16,9 +16,16 @@ scope.forEach((item) => {
     contextMenu.classList.add("visible");
 
     if (location.href.split("=")[1] === undefined) {
-      oldName = event.target.querySelector(".selectedName").innerHTML;
+      oldName = event.target.querySelector(".selectedName")
+        ? event.target.querySelector(".selectedName").innerHTML
+        : event.target.innerHTML;
     } else {
-      oldName = location.href.split("=")[1] + "/" + event.target.querySelector(".selectedName").innerHTML;
+      oldName =
+        location.href.split("=")[1] +
+        "/" +
+        (event.target.querySelector(".selectedName")
+          ? event.target.querySelector(".selectedName").innerHTML
+          : event.target.innerHTML);
     }
   });
 });
@@ -27,9 +34,6 @@ document.addEventListener("click", (e) => {
   if (e.target.offsetParent != contextMenu) {
     contextMenu.classList.remove("visible");
   }
-});
-
-window.addEventListener("click", (e) => {
   if (e.target.dataset.target === "#renameModal") {
     document.getElementById("changeNameForm").value = oldName;
   }

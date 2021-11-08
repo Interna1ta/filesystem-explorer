@@ -79,7 +79,7 @@ function deleteDirectory($old)
     }
   }
 
-  header("Location: ../dashboard.php");
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 function renameDirectory($oldName, $newName)
@@ -92,7 +92,7 @@ function renameDirectory($oldName, $newName)
     rename("../files/$oldName", "../files/$newName");
   }
 
-  header("Location: ../dashboard.php");
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 function getCreationDate($file)
