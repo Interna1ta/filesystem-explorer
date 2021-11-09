@@ -365,8 +365,8 @@ $baseUrl = getBaseUrl();
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input class="d-none" id="moveModalInput" name="oldDirName">
-                        <input class="d-none" name="moveDirName" id="moveDirName">
+                        <input id="moveModalInput" name="oldDirName">
+                        <input name="moveDirName" id="moveDirName">
 
                         <?php
                         $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';

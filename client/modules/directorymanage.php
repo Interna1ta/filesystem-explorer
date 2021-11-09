@@ -115,6 +115,8 @@ function getSize($file)
 
 function moveFiles($oldName, $newName)
 {
+
+  echo $oldName, $newName;
   if (strpos($oldName, '/') !== false) {
     $dir = explode("/", $oldName);
 
@@ -127,5 +129,5 @@ function moveFiles($oldName, $newName)
 
 
 
-  header('Location: ' . $_SERVER['HTTP_REFERER']);
+  //header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
