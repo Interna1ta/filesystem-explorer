@@ -63,23 +63,20 @@ function deleteDirectory($dir)
 {
   $dirPath = "../files/$dir";
 
-  if (is_dir($dirPath)) {
+  while (false !== (is_dir($dirPath))) {
     $objects = scandir($dirPath);
 
     foreach ($objects as $object) {
       if ($object != "." && $object != "..") {
         if (filetype($dirPath . "/" . $object) == "dir") {
-          rrmdir($dirPath . "/" . $object);
+          deleteDirectory($dirPath . "/" . $object);
         } else {
           unlink($dirPath . "/" . $object);
         }
       }
     }
-
     reset($objects);
     rmdir($dirPath);
-  } else {
-    unlink($dirPath);
   }
 
   header('Location: ' . $_SERVER['HTTP_REFERER']);
