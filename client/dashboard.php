@@ -87,7 +87,8 @@ $baseUrl = getBaseUrl();
             </form>
             <!-- With this function the display modal from upload-file.js should work when equal to 1-->
             <?php
-            if ($_GET['openmodal'] == 1) { ?>
+            if (isset($_GET['openmodal']) && $_GET['openmodal'] == 1) { 
+            ?>
                 <script>
                     $(function() {
                         $('#myModal').modal('show');
@@ -204,9 +205,6 @@ $baseUrl = getBaseUrl();
                                 </div>
                                 <div class="col col-3 d-flex align-items-center">
                                     <span class=""><?= $dir['file-size']; ?></span>
-                                </div>
-                                <div class="col col-3 d-flex align-items-center">
-                                    <span class=""><?= $dir['extension']; ?></span>
                                 </div>
                             </div>
                         </button>
