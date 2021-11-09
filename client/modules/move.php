@@ -3,9 +3,9 @@
 require_once("./directorymanage.php");
 
 session_start();
-$directoryPath = $_GET["directoryPath"];
-$fileToMove = $_GET["fileToMove"];
-$completeRoute = $_GET["completeRoute"];
+$directoryPath = $_POST["directoryPath"];
+$fileToMove = $_POST["fileToMove"];
+$completeRoute = $_POST["completeRoute"];
 
 
 moveFiles($directoryPath, $fileToMove, $completeRoute);

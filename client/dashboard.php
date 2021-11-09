@@ -302,8 +302,8 @@ $baseUrl = getBaseUrl();
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input type="text" readonly class="form-control-plaintext" id="oldDirName" name="oldDirName">
-                        <input name="route" id="routeDirectory" readonly class="form-control-plaintext">
+                        <input type="text" readonly class="form-control-plaintext d-none" id="oldDirName" name="oldDirName">
+                        <input name="route" id="routeDirectory" readonly class="form-control-plaintext d-none">
                         <input name="newDirName" placeholder="Insert New Name">
                     </div>
                     <div class="modal-footer">
@@ -318,7 +318,7 @@ $baseUrl = getBaseUrl();
         <!-- Delete the Directory/File Modal -->
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <form class="modal-content" onsubmit="(e) => {e.preventDefault()}" action="../client/modules/delete.php" method="GET">
+                <form class="modal-content" onsubmit="(e) => {e.preventDefault()}" action="../client/modules/delete.php" method="POST">
                     <div class="modal-header">
                         <h5>Delete File</h5>
                         <input type="text" readonly class="form-control-plaintext h5 d-none" id="deleteDirName" name="deleteDirName"></input>
@@ -340,10 +340,10 @@ $baseUrl = getBaseUrl();
 
         <!-- Right Click Menu! -->
         <div id="context-menu" class="btn-group-mr-2">
-            <button type="button" class="btn item">
+            <button type="button" class="btn item" onclick="">
                 Open
             </button>
-            <button type="button" class="btn item" data-toggle="modal" data-target="#renameModal">
+            <button type=" button" class="btn item" data-toggle="modal" data-target="#renameModal">
                 Rename
             </button>
             <button type="button" class="btn item" data-toggle="modal" data-target="#moveModal">
@@ -360,7 +360,7 @@ $baseUrl = getBaseUrl();
         <!-- Move to the Directory/File Modal -->
         <div class="modal fade" id="moveModal" tabindex="-1" role="dialog" aria-labelledby="moveModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <form class="modal-content" action="../client/modules/move.php" method="GET">
+                <form class="modal-content" action="../client/modules/move.php" method="POST">
                     <div class="modal-header">
                         <h5 class="modal-title">Move File</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -368,9 +368,11 @@ $baseUrl = getBaseUrl();
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input id="moveModalInput" name="directoryPath" value="<?= isset($_GET['dir']) ? $_GET['dir'] : ""  ?>">
-                        <input name="fileToMove" id="moveDirName">
-                        <input name="completeRoute" id="moveFileName">
+                        <span class="">Please Select the Destination Folder!</span>
+                        <hr>
+                        <input id="moveModalInput" class="d-none" name="directoryPath" value="<?= isset($_GET['dir']) ? $_GET['dir'] : ""  ?>">
+                        <input name="fileToMove" id="moveDirName" class="d-none">
+                        <input name="completeRoute" id="moveFileName" class="d-none">
                         <?php
                         $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
                         $dirs = getDirs($folderName);
