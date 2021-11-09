@@ -59,33 +59,32 @@ function uploadDirectory($urlDirectory)
 {
 }
 
-function deleteDirectory($old)
+function deleteDirectory($dir)
 {
+  $dirPath = "../files/$dir";
 
+  while (false !== (is_dir($dirPath))) {
+    $objects = scandir($dirPath);
 
-  if (is_dir("../files/$old")) {
-    $files = glob($old . '*');
-    foreach ($files as $file) {
-      is_dir($file) ? deleteDirectory($file) : unlink($file);
+    foreach ($objects as $object) {
+      if ($object != "." && $object != "..") {
+        if (filetype($dirPath . "/" . $object) == "dir") {
+          deleteDirectory($dirPath . "/" . $object);
+        } else {
+          unlink($dirPath . "/" . $object);
+        }
+      }
     }
-    rmdir($old);
-
-    return;
-  } else {
-    unlink("../files/$old");
+    reset($objects);
+    rmdir($dirPath);
   }
-
-
 
   header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 function renameDirectory($oldName, $newName, $route)
 {
-
   rename("../files/$oldName", "../files/$route/$newName");
-
-
 
   header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
@@ -117,7 +116,6 @@ function getSize($file)
 
 function moveFiles($directoryPath, $fileToMove, $completeRoute)
 {
-
 
   echo "Directory Path: $directoryPath";
   echo "File to Move: $fileToMove";
