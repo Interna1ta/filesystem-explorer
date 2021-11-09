@@ -59,27 +59,35 @@ function uploadDirectory($urlDirectory)
 {
 }
 
-function deleteDirectory($old)
+function deleteDirectory($dir)
 {
+  $dirPath = "../files/$dir";
 
+  if (is_dir($dirPath)) {
+    $objects = scandir($dirPath);
 
-  if (is_dir("../files/$old")) {
-    rmdir("../files/$old");
+    foreach ($objects as $object) {
+      if ($object != "." && $object != "..") {
+        if (filetype($dirPath . "/" . $object) == "dir") {
+          rrmdir($dirPath . "/" . $object);
+        } else {
+          unlink($dirPath . "/" . $object);
+        }
+      }
+    }
+
+    reset($objects);
+    rmdir($dirPath);
   } else {
-    unlink("../files/$old");
+    unlink($dirPath);
   }
-
-
 
   header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 function renameDirectory($oldName, $newName, $route)
 {
-
   rename("../files/$oldName", "../files/$route/$newName");
-
-
 
   header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
@@ -111,8 +119,6 @@ function getSize($file)
 
 function moveFiles($oldName, $newName)
 {
-
-  echo $oldName, $newName;
   if (strpos($oldName, '/') !== false) {
     $dir = explode("/", $oldName);
 
@@ -122,8 +128,6 @@ function moveFiles($oldName, $newName)
   } else {
     rename("../files/$oldName", "../files/$newName/$oldName");
   }
-
-
 
   //header('Location: ' . $_SERVER['HTTP_REFERER']);
 }

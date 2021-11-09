@@ -4,6 +4,6 @@ require_once("./directorymanage.php");
 
 session_start();
 
-$oldName = $_GET["deleteDirName"];
+$dir = $_GET["deleteDirName"];
 
-deleteDirectory($oldName);
+deleteDirectory($dir);
