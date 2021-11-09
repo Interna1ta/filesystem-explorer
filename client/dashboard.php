@@ -85,15 +85,30 @@ $baseUrl = getBaseUrl();
                 <input type="hidden" name="MAX_FILE_SIZE" value="10485760" /><br />
                 <input type="file" class="d-none" name="file_upload" id='file' onchange="form.submit()" /><br />
             </form>
+            <!-- With this function the display modal from upload-file.js should work when equal to 1-->
+            <?php
+            if ($_GET['openmodal'] == 1) { ?>
+                <script>
+                    $(function() {
+                        $('#myModal').modal('show');
+                    });
+                </script>
+            <?php
+            }
+            ?>
+            <!-- This is the modal for the upload -->
+
             <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
                             <h4 class="modal-title">Modal title</h4>
                         </div>
                         <div class="modal-body">
-                            <p>One fine body&hellip;</p>
+                            <?php if (!empty($message)) {
+                                echo "<p>{$message}</p>";
+                            } ?>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -107,10 +122,8 @@ $baseUrl = getBaseUrl();
                 <img class="mr-1" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/folder.svg" />
                 Folder
             </button>
-
         </ul>
         <!-- End of Sidebar -->
-
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column bg-white">
 
@@ -128,15 +141,14 @@ $baseUrl = getBaseUrl();
                     <!-- Topbar Search -->
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small py-2 px-3" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <input type="text" name="search" class="form-control bg-light border-0 small py-2 px-3" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
                         </div>
                     </form>
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -192,6 +204,9 @@ $baseUrl = getBaseUrl();
                                 </div>
                                 <div class="col col-3 d-flex align-items-center">
                                     <span class=""><?= $dir['file-size']; ?></span>
+                                </div>
+                                <div class="col col-3 d-flex align-items-center">
+                                    <span class=""><?= $dir['extension']; ?></span>
                                 </div>
                             </div>
                         </button>
