@@ -3,8 +3,9 @@
 require_once("./directorymanage.php");
 
 session_start();
-$newDirName = $_POST["moveDirName"];
-$oldDirName = $_POST["oldDirName"];
+$directoryPath = $_GET["directoryPath"];
+$fileToMove = $_GET["fileToMove"];
+$completeRoute = $_GET["completeRoute"];
 
 
-moveFiles($oldName, $newName);
+moveFiles($directoryPath, $fileToMove, $completeRoute);
