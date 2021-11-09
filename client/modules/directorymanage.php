@@ -39,7 +39,6 @@ function createDirectory($newDirectoryName, $folderName = "files")
     // Create and give permissions to the file.
     mkdir($dir, 0777, true);
     chmod($dir, 0777);
-
   } else {
     echo 'directory already exists';
   }
