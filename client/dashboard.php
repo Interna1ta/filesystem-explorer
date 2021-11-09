@@ -71,16 +71,16 @@ $baseUrl = getBaseUrl();
                         </div>
                     </div>
                     <div class="d-flex justify-content-end align-items-center mr-2">
-                        <img class="pl-auto img-thumbnail rounded-circle w-25" style="padding: 0.125rem !important;" src="img/undraw_profile.svg" />
+                        <img class="pl-auto img-thumbnail rounded-circle" style="padding: 0.125rem !important; width: 40% !important;" src="img/undraw_profile.svg" />
                     </div>
                 </a>
             </div>
 
             <!-- Nav Item - Dashboard -->
-            <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" onsubmit="openModal()" id="myForm" class="form-inline nav-item active btn bg-light text-gray-900 d-flex justify-content-center p-0 m-3 mt-3 align-middle" style="border-radius: 10px;">
-                <label for='file' class="d-flex align-items-center justify-content-center">
-                    <img class="mr-2" height="25" width="25" src="./node_modules/@icon/simple-line-icons/icons/plus.svg" />
-                    Upload file
+            <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" onsubmit="openModal()" id="myForm" class="form-inline btn bg-light text-gray-900 d-flex justify-content-center align-items-start p-2 m-3 rounded-pill" style="max-height: 38px;">
+                <label for='file' class="d-flex align-items-center justify-content-center" style="cursor: pointer;">
+                    <img class="mr-2" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/plus.svg" />
+                    <small><b>Upload file</b></small>
                 </label>
                 <input type="hidden" name="MAX_FILE_SIZE" value="10485760" /><br />
                 <input type="file" class="d-none" name="file_upload" id='file' onchange="form.submit()" /><br />
@@ -119,9 +119,9 @@ $baseUrl = getBaseUrl();
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
 
-            <button type="button" class="btn btn-secondary item" data-toggle="modal" data-target="#createDirModal">
-                <img class="mr-1" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/folder.svg" />
-                Folder
+            <button type="button" class="btn bg-light item text-gray-900 d-flex align-items-center justify-content-center p-2 mx-3 mb-3 mt-0 rounded-pill" data-toggle="modal" data-target="#createDirModal">
+                <img class="mr-2" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/folder.svg" />
+                <small><b>Add folder</b></small>
             </button>
         </ul>
         <!-- End of Sidebar -->
@@ -182,9 +182,15 @@ $baseUrl = getBaseUrl();
 
                     <!-- Content Row -->
                     <div class="row text-gray-900 pt-4 pb-2 px-3 m-0 text-center border-bottom">
-                        <div class="col col-6 d-flex">Name</div>
-                        <div class="col col-3 d-flex">Last modified</div>
-                        <div class="col col-3 d-flex">File Size</div>
+                        <div class="col col-6 d-flex">
+                            <span style="font-size: 14px; font-weight: bold;">Name</span>
+                        </div>
+                        <div class="col col-3 d-flex">
+                            <span style="font-size: 14px; font-weight: bold;">Last modified</span>
+                        </div>
+                        <div class="col col-3 d-flex">
+                            <span style="font-size: 14px; font-weight: bold;">File Size</span>
+                        </div>
                     </div>
 
                     <?php
