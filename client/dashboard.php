@@ -58,13 +58,18 @@ $baseUrl = getBaseUrl();
                         <!-- Topbar Navbar -->
                         <div mt-3 pt-3>
                             <a class="dropdown-item text-white" href="./dashboard.php">
-                                <i class="fas fa-house-user fa-sm fa-fw pt-3 mr-2 fa-2x" aria-hidden="true"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-back text-white mt-2 ml-5" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2z" />
+                                </svg>
                             </a>
                         </div>
                         <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" onsubmit="openModal()" id="myForm" class="form-inline btn bg-light text-gray-900 bg-white d-flex justify-content-center align-items-start p-2 m-3" style="max-height: 38px;">
                             <label for='file' class="d-flex align-items-center justify-content-center" style="cursor: pointer;">
-                                <img class="mr-2" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/plus.svg" />
-                                <small><b>Upload file</b></small>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up text-primary" viewBox="0 0 16 16">
+                                    <path d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707V11.5z" />
+                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                </svg>
+                                <small class="text-primary pl-2"><b> add files</b></small>
                             </label>
                             <input type="hidden" name="MAX_FILE_SIZE" value="10485760" /><br />
                             <input type="file" class="d-none" name="file_upload" id='file' onchange="form.submit()" /><br />
@@ -104,10 +109,23 @@ $baseUrl = getBaseUrl();
                         </div><!-- /.modal -->
 
                         <button type="button" class="btn bg-light item text-gray-900 bg-white d-flex align-items-center justify-content-center p-2 mx-3 mb-3 mt-3" data-toggle="modal" data-target="#createDirModal">
-                            <img class="mr-2" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/folder.svg" />
-                            <small><b>Add folder</b></small>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder text-primary" viewBox="0 0 16 16">
+                                <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z" />
+                            </svg> <small class="text-primary pl-2"><b>Add folder</b></small>
                         </button>
                     </div>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control bg-light border-0 small py-2 px-3" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append ">
+                                <button class="btn btn-white border border-white" type="submit">
+                                    <i class="fas fa-search fa-sm text-white"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                     <!-- Logout, Home and user -->
                     <div class="">
                         <div class="d-flex text-white">
@@ -156,7 +174,7 @@ $baseUrl = getBaseUrl();
 
                                 <div class="col col-6 d-flex align-items-center ">
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
-                                    <span class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $dir['name']; ?></span>
+                                    <span class="selectedName pl-4" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $dir['name']; ?></span>
                                 </div>
                                 <div class="col col-3 d-flex align-items-center">
                                     <span class=""><?= $dir['last-modified']; ?></span>
@@ -180,7 +198,7 @@ $baseUrl = getBaseUrl();
                                 <div class="col col-6 d-flex align-items-center ">
 
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
-                                    <span class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $file['name']; ?></span>
+                                    <span class="selectedName pl-4" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $file['name']; ?></span>
                                 </div>
                                 <div class="col col-3 d-flex align-items-center">
                                     <span><?= $file['last-modified']; ?></span>
