@@ -114,17 +114,18 @@ function getSize($file)
   }
 }
 
-function moveFiles($oldName, $newName)
+function moveFiles($directoryPath, $fileToMove, $completeRoute)
 {
-  if (strpos($oldName, '/') !== false) {
-    $dir = explode("/", $oldName);
 
-    rename("../files/$dir[0]/$dir[1]", "../files/$dir[0]/$newName");
+  echo "Directory Path: $directoryPath";
+  echo "File to Move: $fileToMove";
+  echo "Route: $completeRoute";
 
-    echo $dir;
-  } else {
-    rename("../files/$oldName", "../files/$newName/$oldName");
-  }
+  rename("../files/$completeRoute", "../files/$directoryPath/$fileToMove");
 
-  //header('Location: ' . $_SERVER['HTTP_REFERER']);
+
+
+  // Generate all the folders but hide them in a retrievable menu, So it only shows the main folder unless you click on the menu which will reveal more folders underneath. WORK ON IT.
+
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
 }

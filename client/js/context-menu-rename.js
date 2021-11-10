@@ -45,8 +45,12 @@ document.addEventListener("click", (e) => {
       ? eventTarget.querySelector(".selectedName").innerHTML
       : eventTarget.closest(".selectedName").innerHTML;
 
-    document.getElementById("moveDirName").value = moveDir;
-    document.getElementById("moveModalInput").value = oldDirectory;
+    document.getElementById("moveDirName").value = fileName;
+    document.getElementById("moveFileName").value = oldDirectory;
+    document.getElementById("moveModalInput").value +=
+      document.getElementById("moveModalInput").value !== ""
+        ? "/" + moveDir
+        : moveDir;
   }
 
   if (eventTarget.dataset.target === "#deleteModal") {

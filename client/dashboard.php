@@ -278,8 +278,8 @@ $baseUrl = getBaseUrl();
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input type="text" readonly class="form-control-plaintext" id="oldDirName" name="oldDirName">
-                        <input name="route" id="routeDirectory" readonly class="form-control-plaintext">
+                        <input type="text" readonly class="form-control-plaintext d-none" id="oldDirName" name="oldDirName">
+                        <input name="route" id="routeDirectory" readonly class="form-control-plaintext d-none">
                         <input name="newDirName" placeholder="Insert New Name">
                     </div>
                     <div class="modal-footer">
@@ -294,7 +294,7 @@ $baseUrl = getBaseUrl();
         <!-- Delete the Directory/File Modal -->
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <form class="modal-content" onsubmit="(e) => {e.preventDefault()}" action="../client/modules/delete.php" method="GET">
+                <form class="modal-content" onsubmit="(e) => {e.preventDefault()}" action="../client/modules/delete.php" method="POST">
                     <div class="modal-header">
                         <h5>Delete File</h5>
                         <input type="text" readonly class="form-control-plaintext h5 d-none" id="deleteDirName" name="deleteDirName"></input>
@@ -316,13 +316,13 @@ $baseUrl = getBaseUrl();
 
         <!-- Right Click Menu! -->
         <div id="context-menu" class="btn-group-mr-2">
-            <button type="button" class="btn item">
+            <button type="button" class="btn item" onclick="">
                 Open
             </button>
-            <button type="button" class="btn item" data-toggle="modal" data-target="#renameModal">
+            <button type=" button" class="btn item" data-toggle="modal" data-target="#renameModal">
                 Rename
             </button>
-            <button type="button" class="btn item">
+            <button type="button" class="btn item" data-toggle="modal" data-target="#moveModal">
                 Move
             </button>
             <button type="button" class="btn item" data-toggle="modal" data-target="#deleteModal">
@@ -344,30 +344,35 @@ $baseUrl = getBaseUrl();
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input id="moveModalInput" name="oldDirName">
-                        <input name="moveDirName" id="moveDirName">
-
+                        <span class="">Please Select the Destination Folder!</span>
+                        <hr>
+                        <input id="moveModalInput" class="d-none" name="directoryPath" value="<?= isset($_GET['dir']) ? $_GET['dir'] : ""  ?>">
+                        <input name="fileToMove" id="moveDirName" class="d-none">
+                        <input name="completeRoute" id="moveFileName" class="d-none">
                         <?php
                         $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
                         $dirs = getDirs($folderName);
 
                         foreach ($dirs as $dir) {
                         ?>
-                            <button class="btn btn-light bg-white border-0 w-100 p-0" data-move="move" type="button">
-                                <div class="row m-0 p-3 text-center border-bottom" data-move="move">
-                                    <div class="col col-6 d-flex align-items-center " data-move="move">
-                                        <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
-                                        <span data-move="move" class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $dir['name']; ?></span>
+                            <div>
+                                <button class="btn btn-light bg-white border-0 w-100 p-0 " data-move="move" type="button">
+                                    <div class="row m-0 p-3 text-center border-bottom" data-move="move">
+                                        <div class="col col-6 d-flex align-items-center " data-move="move">
+                                            <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
+                                            <span data-move="move" class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $dir['name']; ?></span>
+                                        </div>
                                     </div>
 
-                                </div>
-                            </button>
+                                </button>
+                            </div>
                         <?php } ?>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Move</button>
                     </div>
+
                 </form>
             </div>
         </div>
