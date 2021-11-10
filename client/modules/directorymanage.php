@@ -43,7 +43,7 @@ function createDirectory($newDirectoryName, $folderName = "files")
     echo 'directory already exists';
   }
 
-  header("Location: ../dashboard.php");
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 function openDirectory()

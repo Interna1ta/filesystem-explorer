@@ -44,86 +44,6 @@ $baseUrl = getBaseUrl();
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-            <!-- Sidebar - Brand -->
-            <div class="sidebar-brand d-flex justify-content-lg-center p-2 border-bottom">
-                <a class="nav-link dropdown-toggle d-flex justify-content-lg-center align-items-center" href=" #" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mx-2 text-white sidebar-brand-text just">
-                        <b><?= strtoupper($_SESSION['name']); ?></b>
-                    </span>
-                    <!-- Dropdown - User Information -->
-                    <div class="dropdown-menu dropdown-menu-right animated--grow-in" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Logout
-                        </a>
-                        <a class="dropdown-item" href="./dashboard.php">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Home
-                        </a>
-                        <div class="sidebar-brand-text mx-3">
-
-                            <!-- Nav Item - User Information -->
-                            <div class="sidebar-brand-text dropdown no-arrow">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-end align-items-center mr-2">
-                        <img class="pl-auto img-thumbnail rounded-circle w-25" style="padding: 0.125rem !important;" src="img/undraw_profile.svg" />
-                    </div>
-                </a>
-            </div>
-
-            <!-- Nav Item - Dashboard -->
-            <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" onsubmit="openModal()" id="myForm" class="form-inline nav-item active btn bg-light text-gray-900 d-flex justify-content-center p-0 m-3 mt-3 align-middle" style="border-radius: 10px;">
-                <label for='file' class="d-flex align-items-center justify-content-center">
-                    <img class="mr-2" height="25" width="25" src="./node_modules/@icon/simple-line-icons/icons/plus.svg" />
-                    Upload file
-                </label>
-                <input type="hidden" name="MAX_FILE_SIZE" value="10485760" /><br />
-                <input type="file" class="d-none" name="file_upload" id='file' onchange="form.submit()" /><br />
-            </form>
-            <!-- With this function the display modal from upload-file.js should work when equal to 1-->
-            <?php
-            if (isset($_GET['openmodal']) && $_GET['openmodal'] == 1) { ?>
-                <script>
-                    $(function() {
-                        $('#myModal').modal('show');
-                    });
-                </script>
-            <?php
-            }
-            ?>
-            <!-- This is the modal for the upload -->
-
-            <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
-                            <h4 class="modal-title">Modal title</h4>
-                        </div>
-                        <div class="modal-body">
-                            <?php if (!empty($message)) {
-                                echo "<p>{$message}</p>";
-                            } ?>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-
-            <button type="button" class="btn btn-secondary item" data-toggle="modal" data-target="#createDirModal">
-                <img class="mr-1" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/folder.svg" />
-                Folder
-            </button>
-        </ul>
-        <!-- End of Sidebar -->
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column bg-white">
 
@@ -131,61 +51,118 @@ $baseUrl = getBaseUrl();
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light border-bottom topbar static-top px-2">
+                <nav class="navbar d-flex navbar-light border-bottom topbar static-top bg-primary p-0">
+                    <div class="d-flex mr-auto">
+                        <!-- Sidebar Toggle (Topbar) -->
 
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
+                        <!-- Topbar Navbar -->
+                        <div mt-3 pt-3>
+                            <a class="dropdown-item text-white" href="./dashboard.php">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-back text-white mt-2 ml-5" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2z" />
+                                </svg>
+                            </a>
+                        </div>
+                        <form action="./modules/upload.php" method="POST" enctype="multipart/form-data" onsubmit="openModal()" id="myForm" class="form-inline btn bg-light text-gray-900 bg-white d-flex justify-content-center align-items-start p-2 m-3" style="max-height: 38px;">
+                            <label for='file' class="d-flex align-items-center justify-content-center" style="cursor: pointer;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up text-primary" viewBox="0 0 16 16">
+                                    <path d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707V11.5z" />
+                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                </svg>
+                                <small class="text-primary pl-2"><b> add files</b></small>
+                            </label>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="10485760" /><br />
+                            <input type="file" class="d-none" name="file_upload" id='file' onchange="form.submit()" /><br />
+                        </form>
+                        <!-- With this function the display modal from upload-file.js should work when equal to 1-->
+                        <?php
+                        if (isset($_GET['openmodal']) && $_GET['openmodal'] == 1) {
+                        ?>
+                            <script>
+                                $(function() {
+                                    $('#myModal').modal('show');
+                                });
+                            </script>
+                        <?php
+                        }
+                        ?>
+                        <!-- This is the modal for the upload -->
+
+                        <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                                        <h4 class="modal-title">Modal title</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <?php if (!empty($message)) {
+                                            echo "<p>{$message}</p>";
+                                        } ?>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+
+                        <button type="button" class="btn bg-light item text-gray-900 bg-white d-flex align-items-center justify-content-center p-2 mx-3 mb-3 mt-3" data-toggle="modal" data-target="#createDirModal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder text-primary" viewBox="0 0 16 16">
+                                <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z" />
+                            </svg> <small class="text-primary pl-2"><b>Add folder</b></small>
+                        </button>
+                    </div>
 
                     <!-- Topbar Search -->
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="./modules/search.php" method="GET">
                         <div class="input-group">
-                            <input type="text" id="searchQuery" name="searchQuery" class="form-control bg-light border-0 small py-2 px-3" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">
-                                    <i class="fas fa-search fa-sm"></i>
+                            <input type="text" name="search" class="form-control bg-light border-0 small py-2 px-3" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append ">
+                                <button class="btn btn-white border border-white" type="submit">
+                                    <i class="fas fa-search fa-sm text-white"></i>
                                 </button>
                             </div>
                         </div>
                     </form>
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
+                    <!-- Logout, Home and user -->
+                    <div class="">
+                        <div class="d-flex text-white">
+                            <!-- Dropdown - User Information -->
+                            <div class="d-flex">
+                                <a class="dropdown-item text-white" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <div class="d-flex-end">
+                                        <span class="text-primary sidebar-brand-text just">
+                                            <b class="text-white">HELLO, <?= strtoupper($_SESSION['name']); ?></b>
+                                        </span>
+                                        <img class="img-thumbnail rounded-circle" style="padding: 0.125rem !important; width: 10% !important;" src="img/undraw_profile.svg" />
                                     </div>
-                                </form>
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+                                    <i>Logout</i>
+                                </a>
                             </div>
-                        </li>
-                    </ul>
-
+                        </div>
+                    </div>
+                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                 </nav>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid p-0">
+                <div class="container-fluid m-4">
 
                     <!-- Content Row -->
                     <div class="row text-gray-900 pt-4 pb-2 px-3 m-0 text-center border-bottom">
-                        <div class="col col-6 d-flex">Name</div>
-                        <div class="col col-3 d-flex">Last modified</div>
-                        <div class="col col-3 d-flex">File Size</div>
+                        <div class="col col-6 d-flex">
+                            <span style="font-size: 14px; font-weight: bold;">Name</span>
+                        </div>
+                        <div class="col col-3 d-flex">
+                            <span style="font-size: 14px; font-weight: bold;">Last modified</span>
+                        </div>
+                        <div class="col col-3 d-flex">
+                            <span style="font-size: 14px; font-weight: bold;">File Size</span>
+                        </div>
                     </div>
-
                     <?php
                     $folderName = isset($_GET['dir']) ? $_GET['dir'] : 'files';
                     $dirs = getDirs($folderName);
@@ -197,7 +174,7 @@ $baseUrl = getBaseUrl();
 
                                 <div class="col col-6 d-flex align-items-center ">
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $dir['icon']; ?>" />
-                                    <span class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $dir['name']; ?></span>
+                                    <span class="selectedName pl-4" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $dir['name']; ?></span>
                                 </div>
                                 <div class="col col-3 d-flex align-items-center">
                                     <span class=""><?= $dir['last-modified']; ?></span>
@@ -205,7 +182,6 @@ $baseUrl = getBaseUrl();
                                 <div class="col col-3 d-flex align-items-center">
                                     <span class=""><?= $dir['file-size']; ?></span>
                                 </div>
-
                             </div>
                         </button>
                     <?php } ?>
@@ -222,7 +198,7 @@ $baseUrl = getBaseUrl();
                                 <div class="col col-6 d-flex align-items-center ">
 
                                     <img class="mr-3" height="20" width="20" src="./node_modules/@icon/simple-line-icons/icons/<?= $file['icon']; ?>" />
-                                    <span class="selectedName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $file['name']; ?></span>
+                                    <span class="selectedName pl-4" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= $file['name']; ?></span>
                                 </div>
                                 <div class="col col-3 d-flex align-items-center">
                                     <span><?= $file['last-modified']; ?></span>
@@ -280,6 +256,8 @@ $baseUrl = getBaseUrl();
                         </button>
                     </div>
                     <div class="modal-body">
+
+                        <input name="folderName" class="d-none" value="<?= isset($_GET['dir']) ? $_GET['dir'] : ""  ?>">
                         <input name="createDirectory" placeholder="Insert New Name">
                     </div>
                     <div class="modal-footer">
