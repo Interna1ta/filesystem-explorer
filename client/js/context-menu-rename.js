@@ -1,13 +1,23 @@
 //Context Menu
 
 const contextMenu = document.getElementById("context-menu");
-const scope = document.querySelectorAll(".file__area");
-
-var oldName;
+var scope = document.querySelectorAll(".file__area");
+var oldDirectory;
+var moveDir;
+var route;
 
 scope.forEach((item) => {
   item.addEventListener("contextmenu", (event) => {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    route = url.searchParams.get("dir") ? url.searchParams.get("dir") : "";
     event.preventDefault();
+
+    item.classList.add("item-active");
+
+    fileName = event.target
+      .closest(".file__area")
+      .querySelector(".selectedName").innerHTML;
 
     const { clientX: mouseX, clientY: mouseY } = event;
 
@@ -16,28 +26,30 @@ scope.forEach((item) => {
 
     contextMenu.classList.add("visible");
 
-    if (location.href.split("=")[1] === undefined) {
-      oldName = event.target.innerHTML;
-    } else {
-      oldName = location.href.split("=")[1] + "/" + event.target.innerHTML;
-    }
+    oldDirectory = (route ? route + "/" : "") + fileName;
   });
 });
 
 document.addEventListener("click", (e) => {
-  if (e.target.offsetParent != contextMenu) {
-    contextMenu.classList.remove("visible");
-  }
-});
+  const eventTarget = e.target;
 
-window.addEventListener("click", (e) => {
-  if (e.target.dataset.target === "#exampleModal") {
-    document.getElementById("changeNameForm").value = oldName;
-    console.log(oldName);
-  }
-  if (e.target.dataset.target === "#deleteModal") {
-    document.getElementById("DeleteDirForm").value = oldName;
+  contextMenu.classList.remove("visible");
 
-    console.log(oldName);
+  if (eventTarget.dataset.target === "#renameModal") {
+    document.getElementById("oldDirName").value = oldDirectory;
+    document.getElementById("routeDirectory").value = route;
+  }
+
+  if (eventTarget.dataset.move === "move") {
+    moveDir = eventTarget.querySelector(".selectedName")
+      ? eventTarget.querySelector(".selectedName").innerHTML
+      : eventTarget.closest(".selectedName").innerHTML;
+
+    document.getElementById("moveDirName").value = moveDir;
+    document.getElementById("moveModalInput").value = oldDirectory;
+  }
+
+  if (eventTarget.dataset.target === "#deleteModal") {
+    document.getElementById("deleteDirName").value = oldDirectory;
   }
 });

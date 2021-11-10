@@ -1,22 +1,24 @@
 <?php
+
 require_once 'utils.php';
 
 function getDirs($folderName = "files")
 {
   $folderPath = getFolderPath($folderName);
   $filesAndDirs = array_diff(scandir($folderPath), array('.', '..', '.DS_Store'));
+  // $urlPath = $folderName;
 
   $dirs = array();
   $i = 0;
 
   foreach ($filesAndDirs as $file) {
-    $filePath = $folderPath . '/' . $file;
+    $filePath = './' . $folderPath . '/' . $file;
     $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
 
     if (is_dir($filePath)) {
       $dirs[$i]['type'] = $fileType;
       $dirs[$i]['icon'] = getIcon($fileType);
-      $dirs[$i]['url'] = $filePath;
+      $dirs[$i]['url'] = $folderName;
       $dirs[$i]['name'] = $file;
       $dirs[$i]['file-size'] = formatSizeUnits(filesize($filePath));
       $dirs[$i]['last-modified'] = date("M d, Y", filemtime($filePath));
@@ -30,21 +32,22 @@ function getDirs($folderName = "files")
 
 function createDirectory($newDirectoryName, $folderName = "files")
 {
-  $dir = './' . $folderName . '/' . $newDirectoryName;
+  $folderPath = getFolderPath($folderName);
+  $dir = '../' . $folderPath . '/' . $newDirectoryName;
 
   if (!file_exists($dir)) {
-    mkdir($dir);
-
-    // Give permissions to the file.
+    // Create and give permissions to the file.
+    mkdir($dir, 0777, true);
     chmod($dir, 0777);
   } else {
     echo 'directory already exists';
   }
+
+  header("Location: ../dashboard.php");
 }
 
 function openDirectory()
 {
-
   $userDirectory = "../client/files";
 
   $data =  scandir($userDirectory);
@@ -56,39 +59,34 @@ function uploadDirectory($urlDirectory)
 {
 }
 
-function deleteDirectory($old)
+function deleteDirectory($dir)
 {
-  if (strpos($old, '/') !== false) {
-    $dir = explode("/", $old);
+  $dirPath = "../files/$dir";
 
-    if (is_dir("../files/$dir[0]/$dir[1]")) {
-      rmdir("../files/$dir[0]/$dir[1]");
-    } else {
-      unlink("../files/$dir[0]/$dir[1]");
+  while (false !== (is_dir($dirPath))) {
+    $objects = scandir($dirPath);
+
+    foreach ($objects as $object) {
+      if ($object != "." && $object != "..") {
+        if (filetype($dirPath . "/" . $object) == "dir") {
+          deleteDirectory($dirPath . "/" . $object);
+        } else {
+          unlink($dirPath . "/" . $object);
+        }
+      }
     }
-    header("Location: ../dashboard.php");
-  } else {
-    if (is_dir("../files/$old")) {
-      rmdir("../files/$old");
-    } else {
-      unlink("../files/$old");
-    }
-    header("Location: ../dashboard.php");
+    reset($objects);
+    rmdir($dirPath);
   }
+
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
-function renameDirectory($old, $new)
+function renameDirectory($oldName, $newName, $route)
 {
+  rename("../files/$oldName", "../files/$route/$newName");
 
-  if (strpos($old, '/') !== false) {
-    $dir = explode("/", $old);
-
-    rename("../files/$dir[0]/$dir[1]", "../files/$dir[0]/$new");
-    header("Location: ../dashboard.php");
-  } else {
-    rename("../files/$old", "../files/$new");
-    header("Location: ../dashboard.php");
-  }
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 function getCreationDate($file)
@@ -98,4 +96,35 @@ function getCreationDate($file)
   } else {
     echo "n/a";
   }
+}
+
+function getSize($file)
+{
+  if (file_exists($file)) {
+    $fileSize = ((int)filesize($file));
+    if ($fileSize < 1024) {
+      return $fileSize . " bytes";
+    } else if ($fileSize < 1048576) {
+      return round($fileSize / 1024, 2) . " KB";
+    } else if ($fileSize <= 10485760) {
+      return round($fileSize / 1048576, 2) . " MB";
+    } else {
+      return "File too big";
+    }
+  }
+}
+
+function moveFiles($oldName, $newName)
+{
+  if (strpos($oldName, '/') !== false) {
+    $dir = explode("/", $oldName);
+
+    rename("../files/$dir[0]/$dir[1]", "../files/$dir[0]/$newName");
+
+    echo $dir;
+  } else {
+    rename("../files/$oldName", "../files/$newName/$oldName");
+  }
+
+  //header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
