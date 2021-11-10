@@ -1,6 +1,7 @@
 <?php
 
-require_once("./modules/utils.php");
+require_once("utils.php");
+
 
 function getFiles($folderName = "files")
 {
@@ -96,8 +97,14 @@ function renameFile($urlFile)
 {
 }
 
-function filterFiles()
+function filterFiles($searchQuery)
 {
+
+    require_once("./directorymanage.php");
+    $dirs = getDirs("files");
+
+    echo $searchQuery;
+    echo $dirs;
 }
 
 function getPathContent($path)

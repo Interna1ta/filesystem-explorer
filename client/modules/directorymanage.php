@@ -5,7 +5,7 @@ require_once 'utils.php';
 function getDirs($folderName = "files")
 {
   $folderPath = getFolderPath($folderName);
-  $filesAndDirs = array_diff(scandir($folderPath), array('.', '..', '.DS_Store'));
+  $filesAndDirs = array_diff(scandir($folderPath), array('.', '..'));
   // $urlPath = $folderName;
 
   $dirs = array();
